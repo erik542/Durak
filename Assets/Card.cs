@@ -9,57 +9,17 @@ public class Card : MonoBehaviour
     [SerializeField] Suit suit;
     [SerializeField] string cardName;
 
-    protected Zone currentZone;
-    protected Player cardOwner;
-    protected Discard discard;
+    Zone currentZone;
+    Discard discard;
+    Board board;
+    bool isTrumpSuit;
+    GameState gameState;
 
     protected void Awake()
     {
         discard = FindObjectOfType<Discard>();
-    }
-
-    public virtual void PlayCard()
-    {
-        //TODO: a lot.
-    }
-
-    public virtual void DrawCard(Player player)
-    {
-        if (currentZone is Deck)
-        {
-            Zone.TransferCard(this, currentZone, player.GetHand());
-            print(cardName + " was drawn");
-        }
-        else
-        {
-            print(cardName + "not in deck");
-        }
-    }
-
-    public virtual void BounceCard(Player player)
-    {
-        if (currentZone is Board)
-        {
-            Zone.TransferCard(this, currentZone, player.GetHand());
-            print(cardName + " was bounced");
-        }
-        else
-        {
-            print(cardName + " not in play");
-        }
-    }
-
-    public virtual void DiscardCard()
-    {
-        if(currentZone is Board)
-        {
-            Zone.TransferCard(this, currentZone, discard);
-            print(cardName + " was destroyed");
-        }
-        else
-        {
-            print(cardName + " not in play");
-        }
+        board = FindObjectOfType<Board>();
+        gameState = FindObjectOfType<GameState>();
     }
 
     public string GetCardName()

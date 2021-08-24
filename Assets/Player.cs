@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Hand hand;
-    Discard discard;
     Board board;
     Deck deck;
 
@@ -13,7 +12,6 @@ public class Player : MonoBehaviour
     {
         hand = GetComponent<Hand>();
         deck = FindObjectOfType<Deck>();
-        discard = FindObjectOfType<Discard>();
         board = FindObjectOfType<Board>();
     }
 
@@ -27,23 +25,48 @@ public class Player : MonoBehaviour
         return hand;
     }
 
-    public Discard GetDiscard()
-    {
-        return discard;
-    }
-
     public Board GetField()
     {
         return board;
     }
 
-    public void AddCardToDeck(Card card)
-    {
-        deck.AddCard(card);
-    }
-
     public void DrawACard()
     {
         deck.DrawACard(this);
+    }
+
+    public void PlayCard(Card card)
+    {
+        if (hand.IsCardInHand(card))
+        {
+            Zone.TransferCard(card, hand, board);
+            print(card.GetCardName() + " was played");
+        }
+        else
+        {
+            print(card.GetCardName() + " is not in hand");
+        }
+    }
+
+    public void BounceCard(Card card)
+    {
+        if (board.IsCardOnBoard(card))
+        {
+            Zone.TransferCard(card, board, hand);
+            print(card.GetCardName() + " was bounced");
+        }
+        else
+        {
+            print(card.GetCardName() + " was not on board");
+        }
+    }
+
+    public void TakeCardsOnBoard()
+    {
+        List<Card> cardList = board.GetCardsOnBoard();
+        foreach (Card card in cardList)
+        {
+            BounceCard(card);
+        }
     }
 }
