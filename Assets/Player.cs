@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     Hand hand;
     Board board;
     Deck deck;
+    Player ally;
+    bool isAttacking;
+    bool isDefending;
 
     private void Awake()
     {
@@ -25,11 +28,6 @@ public class Player : MonoBehaviour
         return hand;
     }
 
-    public Board GetField()
-    {
-        return board;
-    }
-
     public void DrawACard()
     {
         deck.DrawACard(this);
@@ -40,6 +38,7 @@ public class Player : MonoBehaviour
         if (hand.IsCardInHand(card))
         {
             Zone.TransferCard(card, hand, board);
+            hand.DecreaseHandSize();
             print(card.GetCardName() + " was played");
         }
         else
@@ -48,25 +47,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void BounceCard(Card card)
-    {
-        if (board.IsCardOnBoard(card))
-        {
-            Zone.TransferCard(card, board, hand);
-            print(card.GetCardName() + " was bounced");
-        }
-        else
-        {
-            print(card.GetCardName() + " was not on board");
-        }
-    }
-
     public void TakeCardsOnBoard()
     {
         List<Card> cardList = board.GetCardsOnBoard();
         foreach (Card card in cardList)
         {
-            BounceCard(card);
+            board.BounceCard(card, this);
+            hand.IncreaseHandSize();
         }
     }
 }

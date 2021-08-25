@@ -32,4 +32,14 @@ public class Hand : Zone
     {
         return cards.ContainsKey(card.GetCardName());
     }
+
+    public void IncreaseHandSize()
+    {
+        handSize++;
+    }
+
+    public void DecreaseHandSize()
+    {
+        handSize--;
+    }
 }

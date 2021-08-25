@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class Board : Zone
 {
-    Board board;
+    Discard discard;
 
     private new void Awake()
     {
         base.Awake();
-        board = FindObjectOfType<Board>();
+        discard = FindObjectOfType<Discard>();
     }
 
     public void DiscardCard(Card card)
     {
         if (card.GetCurrentZone() is Board)
         {
-            Zone.TransferCard(card, this, board);
+            Zone.TransferCard(card, this, discard);
             print(card.GetCardName() + " was discarded");
+        }
+        else
+        {
+            print(card.GetCardName() + " is not on board");
+        }
+    }
+
+    public void BounceCard(Card card, Player player)
+    {
+        if (card.GetCurrentZone() is Board)
+        {
+            Zone.TransferCard(card, this, player.GetHand());
+            print(card.GetCardName() + " was bounced to " + player.name);
         }
         else
         {

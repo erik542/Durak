@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Deck : Zone
 {
+    [SerializeField] List<Card> initialDeckComposition;
+
     LinkedList<Card> cardList;
     int deckSize;
 
@@ -16,6 +18,7 @@ public class Deck : Zone
     private void Start()
     {
         RecalcDeckSize();
+        InitializeDeckComposition();
     }
 
     public void Shuffle()
@@ -39,23 +42,20 @@ public class Deck : Zone
 
     public override void AddCard(Card card)
     {
-        ShuffleCardIntoDeck(card);
-        card.SetCurrentZone(this);
-    }
-
-    public void ShuffleCardIntoDeck(Card card)
-    {
         base.AddCard(card);
         cardList.AddFirst(card);
-        Shuffle();
+        card.SetCurrentZone(this);
+        deckSize++;
     }
 
     public void DrawACard(Player player)
     {
         if (deckSize > 0)
         {
-            cardList.First.Value.DrawCard(player);
+            Zone.TransferCard(cardList.First.Value, this, player.GetHand());
+            player.GetHand().IncreaseHandSize();
             cardList.RemoveFirst();
+            deckSize--;
         }
     }
 
@@ -75,5 +75,14 @@ public class Deck : Zone
     public int GetDeckSize()
     {
         return deckSize;
+    }
+
+    private void InitializeDeckComposition()
+    {
+        foreach (Card card in initialDeckComposition)
+        {
+            AddCard(card);
+        }
+        Shuffle();
     }
 }
