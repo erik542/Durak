@@ -85,4 +85,9 @@ public class Deck : Zone
         }
         Shuffle();
     }
+
+    public Card GetLastCard()
+    {
+        return cardList.Last.Value;
+    }
 }

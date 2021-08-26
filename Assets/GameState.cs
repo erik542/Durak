@@ -5,8 +5,23 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     Suit trumpSuit;
+    Player[] players;
+    Deck deck;
+    Board board;
 
-    public void SetTrumpSuit(Suit suit)
+    private void Awake()
+    {
+        players = FindObjectsOfType<Player>();
+        deck = FindObjectOfType<Deck>();
+        board = FindObjectOfType<Board>();
+    }
+
+    private void Start()
+    {
+        StartGame();
+    }
+
+    private void SetTrumpSuit(Suit suit)
     {
         trumpSuit = suit;
     }
@@ -14,5 +29,14 @@ public class GameState : MonoBehaviour
     public Suit GetTrumpSuit()
     {
         return trumpSuit;
+    }
+
+    private void StartGame()
+    {
+        foreach (Player player in players)
+        {
+            player.DrawCards(6);
+        }
+        SetTrumpSuit(deck.GetLastCard().GetSuit());
     }
 }
