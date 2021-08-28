@@ -5,11 +5,13 @@ using UnityEngine;
 public class Board : Zone
 {
     Discard discard;
+    GameState gameState;
 
     private new void Awake()
     {
         base.Awake();
         discard = FindObjectOfType<Discard>();
+        gameState = FindObjectOfType<GameState>();
     }
 
     public void DiscardCard(Card card)
@@ -17,6 +19,8 @@ public class Board : Zone
         if (card.GetCurrentZone() is Board)
         {
             Zone.TransferCard(card, this, discard);
+            card.isAttacking = false;
+            card.isDefended = false;
             print(card.GetCardName() + " was discarded");
         }
         else
@@ -30,6 +34,8 @@ public class Board : Zone
         if (card.GetCurrentZone() is Board)
         {
             Zone.TransferCard(card, this, player.GetHand());
+            card.isAttacking = false;
+            card.isDefended = false;
             print(card.GetCardName() + " was bounced to " + player.name);
         }
         else

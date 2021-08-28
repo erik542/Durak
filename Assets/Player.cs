@@ -8,8 +8,9 @@ public class Player : MonoBehaviour
     Board board;
     Deck deck;
     Player ally;
-    bool isAttacking;
-    bool isDefending;
+    public bool isAttacking;
+    public bool isDefending;
+    EnterPlayHandler enterPlayHandler;
 
     private void Awake()
     {
@@ -20,7 +21,6 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-
     }
 
     public Hand GetHand()
@@ -45,9 +45,16 @@ public class Player : MonoBehaviour
     {
         if (hand.IsCardInHand(card))
         {
-            Zone.TransferCard(card, hand, board);
-            hand.DecreaseHandSize();
-            print(card.GetCardName() + " was played");
+            if (card.canBePlayed)
+            {
+                Zone.TransferCard(card, hand, board);
+                hand.DecreaseHandSize();
+                print(card.GetCardName() + " was played");
+            }
+            else
+            {
+                print(card.GetCardName() + " can't be played");
+            }
         }
         else
         {

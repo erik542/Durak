@@ -42,4 +42,29 @@ public class Hand : Zone
     {
         handSize--;
     }
+
+    public void UpdatePlayableCards(List<Card> cardList)
+    {
+        if (player.isAttacking)
+        {
+
+        }
+        else if (player.isDefending)
+        {
+            foreach (Card card in cardList)
+            {
+                foreach(string cardName in cards.Keys)
+                {
+                    if ((card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank()))
+                    {
+                        cards[cardName].canBePlayed = true;
+                    }
+                    else
+                    {
+                        cards[cardName].canBePlayed = false;
+                    }
+                }
+            }
+        }
+    }
 }

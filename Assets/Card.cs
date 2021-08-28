@@ -9,6 +9,10 @@ public class Card : MonoBehaviour
     [SerializeField] Suit suit;
     [SerializeField] string cardName;
 
+    public bool isAttacking;
+    public bool isDefended;
+    public bool canBePlayed;
+
     Zone currentZone;
     Discard discard;
     Board board;
