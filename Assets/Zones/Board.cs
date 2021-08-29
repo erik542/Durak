@@ -5,13 +5,11 @@ using UnityEngine;
 public class Board : Zone
 {
     Discard discard;
-    GameState gameState;
 
     private new void Awake()
     {
         base.Awake();
         discard = FindObjectOfType<Discard>();
-        gameState = FindObjectOfType<GameState>();
     }
 
     public void DiscardCard(Card card)

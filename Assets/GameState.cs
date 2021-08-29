@@ -47,6 +47,31 @@ public class GameState : MonoBehaviour
 
     public void EndTurn()
     {
+        DealHandsUp();
+        CheckForDefenseSuccess();
+        ResetPlayers();
+        currentAttacker = GetNextAttacker(defenseSuccessful);
+        currentDefender = GetNextDefender();
+        players[currentAttacker].isAttacking = true;
+        players[currentDefender].isDefending = true;
+        players[currentAttacker].GetAlly().isAttacking = true;
+        players[currentAttacker].GetHand().MakeHandPlayableForAttack();
+        //TODO: test this
+    }
+
+    public void ResetPlayers()
+    {
+        foreach (Player player in players)
+        {
+            player.isAttacking = false;
+            player.isDefending = false;
+            player.GetHand().MakeHandUnplayable();
+            player.hasEndedTurn = false;
+        }
+    }
+
+    private void DealHandsUp()
+    {
         foreach (Player player in players)
         {
             if (player.GetHand().GetHandSize() < baseHandSize)
@@ -54,6 +79,10 @@ public class GameState : MonoBehaviour
                 player.DrawCards(baseHandSize - player.GetHand().GetHandSize());
             }
         }
+    }
+
+    private void CheckForDefenseSuccess()
+    {
         List<Card> cardList = board.GetCardsOnBoard();
         foreach (Card card in cardList)
         {
@@ -62,24 +91,46 @@ public class GameState : MonoBehaviour
                 defenseSuccessful = false;
             }
         }
-        if (defenseSuccessful)
-        {
-            currentAttacker = currentDefender;
-        }
-        else
-        {
-            currentAttacker = NextPlayer(currentDefender);
-        }
-
-        //TODO: don't buy other stuff
     }
 
     private int NextPlayer(int currentPlayer)
     {
+        //TODO: Not entirely sure on this, supposed be a circle
         if (currentPlayer + 1 >= players.Length)
         {
             currentPlayer %= players.Length;
         }
         return currentPlayer++;
+    }
+
+    private int GetNextAttacker(bool defenseSuccessful)
+    {
+        if(defenseSuccessful)
+        {
+            return NextPlayer(currentAttacker);
+        }
+        else
+        {
+            if (NextPlayer(currentAttacker) == currentDefender)
+            {
+                return NextPlayer(NextPlayer(currentAttacker));
+            }
+            else
+            {
+                return NextPlayer(currentAttacker);
+            }
+        }
+    }
+
+    private int GetNextDefender()
+    {
+        if (players[NextPlayer(currentAttacker)] == players[currentAttacker].GetAlly())
+        {
+            return NextPlayer(NextPlayer(currentAttacker));
+        }
+        else
+        {
+            return NextPlayer(currentAttacker);
+        }
     }
 }

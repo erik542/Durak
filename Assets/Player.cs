@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     Player ally;
     public bool isAttacking;
     public bool isDefending;
+    public bool hasEndedTurn;
     EnterPlayHandler enterPlayHandler;
 
     private void Awake()
@@ -17,10 +18,12 @@ public class Player : MonoBehaviour
         hand = GetComponent<Hand>();
         deck = FindObjectOfType<Deck>();
         board = FindObjectOfType<Board>();
+        enterPlayHandler = FindObjectOfType<EnterPlayHandler>();
     }
 
     private void Start()
     {
+        enterPlayHandler.AddListener(this);
     }
 
     public Hand GetHand()
@@ -49,6 +52,7 @@ public class Player : MonoBehaviour
             {
                 Zone.TransferCard(card, hand, board);
                 hand.DecreaseHandSize();
+                enterPlayHandler.InvokeAllListeners(board);
                 print(card.GetCardName() + " was played");
             }
             else
@@ -70,5 +74,15 @@ public class Player : MonoBehaviour
             board.BounceCard(card, this);
             hand.IncreaseHandSize();
         }
+    }
+
+    public Player GetAlly()
+    {
+        return ally;
+    }
+
+    public void SetAlly(Player player)
+    {
+        ally = player;
     }
 }

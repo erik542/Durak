@@ -424,6 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   isDefending: 0
+  hasEndedTurn: 0
 --- !u!1 &191369678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,7 +2042,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1617211173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6964eac6263ceb04ca074f9d6c6c62f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f7a864a3891ee54aaddb1114f5dcdee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1617211175

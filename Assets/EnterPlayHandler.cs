@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class EnterPlayHandler : MonoBehaviour
 {
-    CardLibrary cardLibrary;
-
-    Dictionary<string, bool> enterPlayListeners;
+    Dictionary<Player, bool> enterPlayListeners;
 
     private void Awake()
     {
-        enterPlayListeners = new Dictionary<string, bool>();
+        enterPlayListeners = new Dictionary<Player, bool>();
     }
 
     void Start()
     {
-        cardLibrary = FindObjectOfType<CardLibrary>();
     }
 
-    public void AddListener(string listener)
+    public void AddListener(Player listener)
     {
         if (!enterPlayListeners.ContainsKey(listener))
         {
@@ -26,7 +23,7 @@ public class EnterPlayHandler : MonoBehaviour
         }
     }
 
-    public void RemoveListener(string listener)
+    public void RemoveListener(Player listener)
     {
         if(enterPlayListeners.ContainsKey(listener))
         {
@@ -34,11 +31,11 @@ public class EnterPlayHandler : MonoBehaviour
         }
     }
 
-    public void InvokeAllListeners(string publisher)
+    public void InvokeAllListeners(Board board)
     {
-        foreach (string listener in enterPlayListeners.Keys)
+        foreach (Player listener in enterPlayListeners.Keys)
         {
-            cardLibrary.GetCardFromLibrary(listener).EnterPlayListener(publisher);
+            listener.GetHand().UpdatePlayableCards(board.GetCardsOnBoard());
         }
     }
 }

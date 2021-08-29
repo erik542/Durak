@@ -4,9 +4,4 @@ using UnityEngine;
 
 public class Discard : Zone
 {
-
-    private new void Awake()
-    {
-        base.Awake();
-    }
 }

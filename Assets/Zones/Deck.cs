@@ -25,11 +25,11 @@ public class Deck : Zone
     {
         cardList.Clear();
         //Fisher-Yates Shuffle
-        Card[] tempCardList = new Card[base.cards.Count];
-        base.cards.Values.CopyTo(tempCardList, 0);
+        Card[] tempCardList = new Card[cards.Count];
+        cards.Values.CopyTo(tempCardList, 0);
         for (int i = 0; i < tempCardList.Length; i++)
         {
-            int j = Random.Range(i, base.cards.Count);
+            int j = Random.Range(i, cards.Count);
             Card temporary = tempCardList[i];
             tempCardList[i] = tempCardList[j];
             tempCardList[j] = temporary;
