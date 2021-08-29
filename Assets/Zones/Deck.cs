@@ -17,8 +17,8 @@ public class Deck : Zone
 
     private void Start()
     {
-        RecalcDeckSize();
         InitializeDeckComposition();
+        RecalcDeckSize();
     }
 
     public void Shuffle()

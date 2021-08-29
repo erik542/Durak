@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     [SerializeField] int baseHandSize = 6;
+    [SerializeField] int initialAttacker = 0;
 
     int currentDefender;
     int currentAttacker;
@@ -43,6 +44,8 @@ public class GameState : MonoBehaviour
             player.DrawCards(baseHandSize);
         }
         SetTrumpSuit(deck.GetLastCard().GetSuit());
+        currentAttacker = initialAttacker;
+        currentDefender = GetNextDefender();
     }
 
     public void EndTurn()
@@ -105,32 +108,67 @@ public class GameState : MonoBehaviour
 
     private int GetNextAttacker(bool defenseSuccessful)
     {
-        if(defenseSuccessful)
+        int candidate = NextPlayer(currentAttacker);
+        bool candidateFail = true;
+        if (defenseSuccessful)
         {
-            return NextPlayer(currentAttacker);
+            while (candidateFail)
+            {
+                if (players[candidate].GetHand().GetHandSize() > 0)
+                {
+                    candidateFail = false;
+                }
+                else
+                {
+                    candidate = NextPlayer(candidate);
+                }
+            }
         }
         else
         {
-            if (NextPlayer(currentAttacker) == currentDefender)
+            while(candidateFail)
             {
-                return NextPlayer(NextPlayer(currentAttacker));
-            }
-            else
-            {
-                return NextPlayer(currentAttacker);
+                if (candidate != currentDefender || players[candidate].GetHand().GetHandSize() > 0)
+                {
+                    candidate = NextPlayer(candidate);
+                }
+                else
+                {
+                    candidateFail = false;
+                }
             }
         }
+        return candidate;
     }
 
     private int GetNextDefender()
     {
-        if (players[NextPlayer(currentAttacker)] == players[currentAttacker].GetAlly())
+        int candidate = NextPlayer(currentAttacker);
+        bool candidateFail = true;
+        while(candidateFail)
         {
-            return NextPlayer(NextPlayer(currentAttacker));
+            if (players[currentAttacker].GetAlly() != players[candidate] && players[candidate].GetHand().GetHandSize() > 0)
+            {
+                candidateFail = false;
+            }
+            else
+            {
+                candidate = NextPlayer(candidate);
+            }
         }
-        else
+        return candidate;
+    }
+
+    public bool EndTurnChecker()
+    {
+        bool endTurnFlag = true;
+        foreach (Player player in players)
         {
-            return NextPlayer(currentAttacker);
+            if (!player.hasEndedTurn)
+            {
+                endTurnFlag = false;
+            }
         }
+        return endTurnFlag;
     }
 }

@@ -12,18 +12,20 @@ public class Card : MonoBehaviour
     public bool isAttacking;
     public bool isDefended;
     public bool canBePlayed;
+    public Card defendedByCard;
 
     Zone currentZone;
-    Discard discard;
-    Board board;
-    bool isTrumpSuit;
+    public bool isTrumpSuit;
     GameState gameState;
 
     protected void Awake()
     {
-        discard = FindObjectOfType<Discard>();
-        board = FindObjectOfType<Board>();
         gameState = FindObjectOfType<GameState>();
+    }
+
+    private void Start()
+    {
+        isTrumpSuit = suit == gameState.GetTrumpSuit();
     }
 
     public string GetCardName()
@@ -54,15 +56,5 @@ public class Card : MonoBehaviour
     public int GetRank()
     {
         return rank;
-    }
-
-    public virtual void EnterPlayListener(string cardID)
-    {
-
-    }
-
-    public virtual void LeavePlayListener(string cardID)
-    {
-
     }
 }

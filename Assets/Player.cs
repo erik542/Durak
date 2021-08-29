@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public bool isDefending;
     public bool hasEndedTurn;
     EnterPlayHandler enterPlayHandler;
+    GameState gameState;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
         deck = FindObjectOfType<Deck>();
         board = FindObjectOfType<Board>();
         enterPlayHandler = FindObjectOfType<EnterPlayHandler>();
+        gameState = FindObjectOfType<GameState>();
     }
 
     private void Start()
@@ -44,13 +46,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void PlayCard(Card card)
+    public void AttackWithCard(Card card)
     {
         if (hand.IsCardInHand(card))
         {
             if (card.canBePlayed)
             {
                 Zone.TransferCard(card, hand, board);
+                card.isAttacking = true;
+                card.isDefended = false;
                 hand.DecreaseHandSize();
                 enterPlayHandler.InvokeAllListeners(board);
                 print(card.GetCardName() + " was played");
@@ -63,6 +67,37 @@ public class Player : MonoBehaviour
         else
         {
             print(card.GetCardName() + " is not in hand");
+        }
+    }
+
+    public void DefendWithCard(Card cardInHand, Card cardOnBoard)
+    {
+        if (hand.IsCardInHand(cardInHand))
+        {
+            if (cardInHand.canBePlayed)
+            {
+                if (CheckCardDefense(cardInHand, cardOnBoard))
+                {
+                    Zone.TransferCard(cardInHand, hand, board);
+                    cardOnBoard.isDefended = true;
+                    cardOnBoard.defendedByCard = cardInHand;
+                    hand.DecreaseHandSize();
+                    enterPlayHandler.InvokeAllListeners(board);
+                    print(cardInHand.GetCardName() + " was played");
+                }
+                else
+                {
+                    print(cardInHand.GetCardName() + " cannot be played on " + cardOnBoard.GetCardName());
+                }
+            }
+            else
+            {
+                print(cardInHand.GetCardName() + " cannot be played");
+            }
+        }
+        else
+        {
+            print(cardInHand.GetCardName() + " is not in hand");
         }
     }
 
@@ -84,5 +119,19 @@ public class Player : MonoBehaviour
     public void SetAlly(Player player)
     {
         ally = player;
+    }
+
+    public void EndTurn()
+    {
+        hasEndedTurn = true;
+        if (gameState.EndTurnChecker())
+        {
+            gameState.EndTurn();
+        }
+    }
+
+    public bool CheckCardDefense(Card cardInHand, Card cardOnBoard)
+    {
+        return (cardInHand.GetSuit() == cardOnBoard.GetSuit() && cardInHand.GetRank() > cardOnBoard.GetRank()) || (cardInHand.isTrumpSuit && !cardOnBoard.isTrumpSuit);
     }
 }

@@ -19,6 +19,7 @@ public class Board : Zone
             Zone.TransferCard(card, this, discard);
             card.isAttacking = false;
             card.isDefended = false;
+            card.defendedByCard = null;
             print(card.GetCardName() + " was discarded");
         }
         else
@@ -34,6 +35,7 @@ public class Board : Zone
             Zone.TransferCard(card, this, player.GetHand());
             card.isAttacking = false;
             card.isDefended = false;
+            card.defendedByCard = null;
             print(card.GetCardName() + " was bounced to " + player.name);
         }
         else
