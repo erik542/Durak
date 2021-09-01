@@ -7,12 +7,14 @@ public class Deck : Zone
     [SerializeField] List<Card> initialDeckComposition;
 
     LinkedList<Card> cardList;
+    CardsPile cardsPile;
     int deckSize;
 
     private new void Awake()
     {
         base.Awake();
         cardList = new LinkedList<Card>();
+        cardsPile = GetComponent<CardsPile>();
     }
 
     private void Start()
@@ -46,6 +48,7 @@ public class Deck : Zone
         cardList.AddFirst(card);
         card.SetCurrentZone(this);
         deckSize++;
+        cardsPile.Add(Instantiate(card.gameObject), false);
     }
 
     public void DrawACard(Player player)
@@ -55,6 +58,7 @@ public class Deck : Zone
             Zone.TransferCard(cardList.First.Value, this, player.GetHand());
             player.GetHand().IncreaseHandSize();
             cardList.RemoveFirst();
+            cardsPile.RemoveAt(0);
             deckSize--;
         }
     }

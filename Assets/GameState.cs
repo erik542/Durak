@@ -39,11 +39,11 @@ public class GameState : MonoBehaviour
 
     private void StartGame()
     {
+        SetTrumpSuit(deck.GetLastCard().GetSuit());
         foreach (Player player in players)
         {
             player.DrawCards(baseHandSize);
         }
-        SetTrumpSuit(deck.GetLastCard().GetSuit());
         currentAttacker = initialAttacker;
         currentDefender = GetNextDefender();
     }

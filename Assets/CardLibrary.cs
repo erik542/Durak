@@ -13,7 +13,7 @@ public class CardLibrary : MonoBehaviour
 
     public void AddCardToLibrary(Card card)
     {
-        cardLibrary.Add(card.GetCardName(), card);
+        cardLibrary.Add(card.name, card);
     }
 
     public Card GetCardFromLibrary(string cardName)

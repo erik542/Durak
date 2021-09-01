@@ -55,18 +55,19 @@ public class Player : MonoBehaviour
                 Zone.TransferCard(card, hand, board);
                 card.isAttacking = true;
                 card.isDefended = false;
+                hand.GetCardsPile().Remove(card.gameObject);
                 hand.DecreaseHandSize();
                 enterPlayHandler.InvokeAllListeners(board);
-                print(card.GetCardName() + " was played");
+                print(card.name + " was played");
             }
             else
             {
-                print(card.GetCardName() + " can't be played");
+                print(card.name + " can't be played");
             }
         }
         else
         {
-            print(card.GetCardName() + " is not in hand");
+            print(card.name + " is not in hand");
         }
     }
 
@@ -83,21 +84,21 @@ public class Player : MonoBehaviour
                     cardOnBoard.defendedByCard = cardInHand;
                     hand.DecreaseHandSize();
                     enterPlayHandler.InvokeAllListeners(board);
-                    print(cardInHand.GetCardName() + " was played");
+                    print(cardInHand.name + " was played");
                 }
                 else
                 {
-                    print(cardInHand.GetCardName() + " cannot be played on " + cardOnBoard.GetCardName());
+                    print(cardInHand.name + " cannot be played on " + cardOnBoard.name);
                 }
             }
             else
             {
-                print(cardInHand.GetCardName() + " cannot be played");
+                print(cardInHand.name + " cannot be played");
             }
         }
         else
         {
-            print(cardInHand.GetCardName() + " is not in hand");
+            print(cardInHand.name + " is not in hand");
         }
     }
 

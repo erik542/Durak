@@ -6,17 +6,24 @@ public class Hand : Zone
 {
     Player player;
     int handSize;
-    Suit trumpSuit;
+    CardsPile cardsPile;
 
     private new void Awake()
     {
         base.Awake();
         player = gameObject.GetComponent<Player>();
+        cardsPile = GetComponent<CardsPile>();
     }
 
     private void Start()
     {
         RecalcHandSize();
+    }
+
+    public override void AddCard(Card card)
+    {
+        base.AddCard(card);
+        cardsPile.Add(Instantiate(card.gameObject));
     }
 
     public void RecalcHandSize()
@@ -29,14 +36,14 @@ public class Hand : Zone
         return handSize;
     }
 
-    public bool IsCardInHand(Card card)
+    public CardsPile GetCardsPile()
     {
-        return cards.ContainsKey(card.GetCardName());
+        return cardsPile;
     }
 
-    public void SetTrumpSuit(Suit suit)
+    public bool IsCardInHand(Card card)
     {
-        trumpSuit = suit;
+        return cards.ContainsKey(card.name);
     }
 
     public void IncreaseHandSize()
@@ -90,7 +97,7 @@ public class Hand : Zone
             {
                 foreach(string cardName in cards.Keys)
                 {
-                    if ((card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank()))
+                    if ((card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank() || (!card.isTrumpSuit && cards[cardName].isTrumpSuit)))
                     {
                         cards[cardName].canBePlayed = true;
                     }

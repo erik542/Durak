@@ -7,7 +7,6 @@ public class Card : MonoBehaviour
 {
     [SerializeField] int rank;
     [SerializeField] Suit suit;
-    [SerializeField] string cardName;
 
     public bool isAttacking;
     public bool isDefended;
@@ -26,16 +25,6 @@ public class Card : MonoBehaviour
     private void Start()
     {
         isTrumpSuit = suit == gameState.GetTrumpSuit();
-    }
-
-    public string GetCardName()
-    {
-        return cardName;
-    }
-
-    public void SetCardName(string newName)
-    {
-        cardName = newName;
     }
 
     public void SetCurrentZone(Zone zone)
