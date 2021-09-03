@@ -5,16 +5,15 @@ using UnityEngine;
 public class Deck : Zone
 {
     [SerializeField] List<Card> initialDeckComposition;
+    [SerializeField] CardsPile cardsPile;
 
     LinkedList<Card> cardList;
-    CardsPile cardsPile;
     int deckSize;
 
     private new void Awake()
     {
         base.Awake();
         cardList = new LinkedList<Card>();
-        cardsPile = GetComponent<CardsPile>();
     }
 
     private void Start()
@@ -58,7 +57,7 @@ public class Deck : Zone
             Zone.TransferCard(cardList.First.Value, this, player.GetHand());
             player.GetHand().IncreaseHandSize();
             cardList.RemoveFirst();
-            cardsPile.RemoveAt(0);
+            cardsPile.RemoveAt(cardsPile.Cards.Count - 1);
             deckSize--;
         }
     }
@@ -87,7 +86,7 @@ public class Deck : Zone
         {
             AddCard(card);
         }
-        Shuffle();
+        //Shuffle();
     }
 
     public Card GetLastCard()

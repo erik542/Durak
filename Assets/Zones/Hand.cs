@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Hand : Zone
 {
+    [SerializeField] CardsPile cardsPile;
+    
     Player player;
     int handSize;
-    CardsPile cardsPile;
+    
 
     private new void Awake()
     {
         base.Awake();
         player = gameObject.GetComponent<Player>();
-        cardsPile = GetComponent<CardsPile>();
     }
 
     private void Start()

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
-    [SerializeField] int baseHandSize = 6;
+    [SerializeField] int baseHandSize = 3;
     [SerializeField] int initialAttacker = 0;
+    [SerializeField] Card testCard;
 
     int currentDefender;
     int currentAttacker;
@@ -13,7 +14,7 @@ public class GameState : MonoBehaviour
     Player[] players;
     Deck deck;
     Board board;
-    bool defenseSuccessful;
+    bool defenseSuccessful = true;
 
     private void Awake()
     {
@@ -40,12 +41,21 @@ public class GameState : MonoBehaviour
     private void StartGame()
     {
         SetTrumpSuit(deck.GetLastCard().GetSuit());
-        foreach (Player player in players)
-        {
-            player.DrawCards(baseHandSize);
-        }
+        SetAllies();
         currentAttacker = initialAttacker;
-        currentDefender = GetNextDefender();
+        EndTurn();
+        players[currentAttacker].AttackWithCard(testCard);
+    }
+
+    private void SetAllies()
+    {
+        if (players.Length == 4)
+        {
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].SetAlly(players[NextPlayer(NextPlayer(i))]);
+            }
+        }        
     }
 
     public void EndTurn()
@@ -99,11 +109,12 @@ public class GameState : MonoBehaviour
     private int NextPlayer(int currentPlayer)
     {
         //TODO: Not entirely sure on this, supposed be a circle
-        if (currentPlayer + 1 >= players.Length)
+        currentPlayer++;
+        if (currentPlayer >= players.Length)
         {
             currentPlayer %= players.Length;
         }
-        return currentPlayer++;
+        return currentPlayer;
     }
 
     private int GetNextAttacker(bool defenseSuccessful)
@@ -128,7 +139,7 @@ public class GameState : MonoBehaviour
         {
             while(candidateFail)
             {
-                if (candidate != currentDefender || players[candidate].GetHand().GetHandSize() > 0)
+                if (candidate == currentDefender || players[candidate].GetHand().GetHandSize() == 0)
                 {
                     candidate = NextPlayer(candidate);
                 }

@@ -31,7 +31,7 @@ public class CardsPile : MonoBehaviour
 	{
 		Transform cardHolder = GetCardHolder();
 
-		if (index == -1)
+		if (index == -1) 
 		{
 			cards.Add(card);
 			cardsHolders.Add(cardHolder);
