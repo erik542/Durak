@@ -12,9 +12,11 @@ public class Card : MonoBehaviour
     public bool isDefended;
     public bool canBePlayed;
     public Card defendedByCard;
-
-    Zone currentZone;
+    public bool onBoard;
     public bool isTrumpSuit;
+    public Player cardHolder;
+    
+    Zone currentZone;
     GameState gameState;
 
     protected void Awake()
@@ -46,4 +48,18 @@ public class Card : MonoBehaviour
     {
         return rank;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        onBoard = true;
+        print(onBoard);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        onBoard = false;
+        print(onBoard);
+    }
+
+    
 }

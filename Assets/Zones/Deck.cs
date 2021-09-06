@@ -55,6 +55,7 @@ public class Deck : Zone
         if (deckSize > 0)
         {
             Zone.TransferCard(cardList.First.Value, this, player.GetHand());
+            cardList.First.Value.cardHolder = player;
             player.GetHand().IncreaseHandSize();
             cardList.RemoveFirst();
             cardsPile.RemoveAt(cardsPile.Cards.Count - 1);

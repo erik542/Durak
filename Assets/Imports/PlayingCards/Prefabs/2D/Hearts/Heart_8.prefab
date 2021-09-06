@@ -53,7 +53,9 @@ MonoBehaviour:
   isDefended: 0
   canBePlayed: 1
   defendedByCard: {fileID: 0}
+  onBoard: 0
   isTrumpSuit: 0
+  cardHolder: {fileID: 0}
 --- !u!65 &3291916951019488061
 BoxCollider:
   m_ObjectHideFlags: 0

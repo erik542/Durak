@@ -44,7 +44,7 @@ public class GameState : MonoBehaviour
         SetAllies();
         currentAttacker = initialAttacker;
         EndTurn();
-        players[currentAttacker].AttackWithCard(testCard);
+        //players[currentAttacker].AttackWithCard(testCard);
     }
 
     private void SetAllies()
@@ -108,7 +108,6 @@ public class GameState : MonoBehaviour
 
     private int NextPlayer(int currentPlayer)
     {
-        //TODO: Not entirely sure on this, supposed be a circle
         currentPlayer++;
         if (currentPlayer >= players.Length)
         {
