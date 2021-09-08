@@ -7,7 +7,8 @@ public class Card : MonoBehaviour
 {
     [SerializeField] int rank;
     [SerializeField] Suit suit;
-
+    
+    public string ID;
     public bool isAttacking;
     public bool isDefended;
     public bool canBePlayed;
@@ -60,6 +61,4 @@ public class Card : MonoBehaviour
         onBoard = false;
         print(onBoard);
     }
-
-    
 }

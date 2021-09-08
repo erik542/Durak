@@ -20,11 +20,11 @@ public class Board : Zone
             card.isAttacking = false;
             card.isDefended = false;
             card.defendedByCard = null;
-            print(card.name + " was discarded");
+            print(card.ID + " was discarded");
         }
         else
         {
-            print(card.name + " is not on board");
+            print(card.ID + " is not on board");
         }
     }
 
@@ -36,17 +36,17 @@ public class Board : Zone
             card.isAttacking = false;
             card.isDefended = false;
             card.defendedByCard = null;
-            print(card.name + " was bounced to " + player.name);
+            print(card.ID + " was bounced to " + player.name);
         }
         else
         {
-            print(card.name + " is not on board");
+            print(card.ID + " is not on board");
         }
     }
 
     public bool IsCardOnBoard(Card card)
     {
-        return cards.ContainsKey(card.name);
+        return cards.ContainsKey(card.ID);
     }
 
     public List<Card> GetCardsOnBoard()

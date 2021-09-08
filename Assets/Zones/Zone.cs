@@ -19,11 +19,11 @@ public class Zone: MonoBehaviour
 
     public virtual void AddCard(Card card)
     {
-        cards.Add(card.name,card);
+        cards.Add(card.ID,card);
     }
 
     public virtual void RemoveCard(Card card)
     {
-        cards.Remove(card.name);
+        cards.Remove(card.ID);
     }
 }

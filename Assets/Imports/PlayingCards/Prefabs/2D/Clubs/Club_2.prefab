@@ -172,6 +172,8 @@ GameObject:
   m_Component:
   - component: {fileID: 400004}
   - component: {fileID: 7024706432017459404}
+  - component: {fileID: 6449152813512609865}
+  - component: {fileID: -6417744294617739548}
   m_Layer: 0
   m_Name: Club_2
   m_TagString: Untagged
@@ -209,8 +211,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rank: 2
   suit: 1
+  ID: 2C
   isAttacking: 0
   isDefended: 0
   canBePlayed: 0
   defendedByCard: {fileID: 0}
+  onBoard: 0
   isTrumpSuit: 0
+  cardHolder: {fileID: 0}
+--- !u!65 &6449152813512609865
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100004}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 3, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6417744294617739548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc2d19f60e40254b995d88f71497edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasActiveCardSlot: 0
+  isMovingSomething: 0

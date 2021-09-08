@@ -5,10 +5,12 @@ using UnityEngine;
 public class CardSlot : MonoBehaviour
 {
     private HoverManager hoverManager;
+    public CardsPile cardsPile;
 
     private void Awake()
     {
         hoverManager = GetComponentInParent<HoverManager>();
+        cardsPile = GetComponent<CardsPile>();
     }
 
     private void OnMouseEnter()

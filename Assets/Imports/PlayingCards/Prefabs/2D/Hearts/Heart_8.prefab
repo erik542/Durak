@@ -49,9 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rank: 8
   suit: 0
-  isAttacking: 1
+  ID: 8H
+  isAttacking: 0
   isDefended: 0
-  canBePlayed: 1
+  canBePlayed: 0
   defendedByCard: {fileID: 0}
   onBoard: 0
   isTrumpSuit: 0
@@ -81,6 +82,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc2d19f60e40254b995d88f71497edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasActiveCardSlot: 0
+  isMovingSomething: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0

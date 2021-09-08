@@ -12,6 +12,7 @@ public class CardMovementHandler : MonoBehaviour
     private HoverManager hoverManager;
     public bool hasActiveCardSlot;
     public bool isMovingSomething;
+    private Vector3 originalPosition;
 
     private void Awake()
     {
@@ -29,7 +30,8 @@ public class CardMovementHandler : MonoBehaviour
         if (card.canBePlayed)
         {
             screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-            offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+            originalPosition = card.gameObject.transform.position;
+            offset = originalPosition - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
             gameObject.layer = 2;
             hoverManager.Subscribe(this);
             isMovingSomething = true;
@@ -54,12 +56,19 @@ public class CardMovementHandler : MonoBehaviour
     {
         if(isMovingSomething)
         {
-            //card.cardHolder.AttackWithCard(card);
+            card.cardHolder.AttackWithCard(card);
             hoverManager.PublishCardSlot();
-            card.transform.parent = activeCardSlot.transform;
             gameObject.layer = 0;
             isMovingSomething = false;
             hoverManager.Unsubscribe();
+            if (hasActiveCardSlot)
+            {
+                activeCardSlot.cardsPile.Add(Instantiate(card.gameObject));
+            }
+            else
+            {
+                card.transform.position = originalPosition;
+            }
         }
     }
 

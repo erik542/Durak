@@ -44,7 +44,7 @@ public class Hand : Zone
 
     public bool IsCardInHand(Card card)
     {
-        return cards.ContainsKey(card.name);
+        return cards.ContainsKey(card.ID);
     }
 
     public void IncreaseHandSize()

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 400000}
   - component: {fileID: -2240734547236147299}
+  - component: {fileID: 8995311935001224303}
+  - component: {fileID: -1288771315274416753}
   m_Layer: 0
   m_Name: Spade_2
   m_TagString: Untagged
@@ -47,11 +49,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rank: 2
   suit: 3
+  ID: 2S
   isAttacking: 0
   isDefended: 0
-  canBePlayed: 0
+  canBePlayed: 1
   defendedByCard: {fileID: 0}
+  onBoard: 0
   isTrumpSuit: 0
+  cardHolder: {fileID: 0}
+--- !u!65 &8995311935001224303
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 3, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1288771315274416753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc2d19f60e40254b995d88f71497edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasActiveCardSlot: 0
+  isMovingSomething: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0

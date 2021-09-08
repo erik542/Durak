@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2213607409539068842}
   - component: {fileID: 2081939512928335323}
   - component: {fileID: -6103322725040424929}
+  - component: {fileID: 2873581571215910351}
   m_Layer: 0
   m_Name: Club_5
   m_TagString: Untagged
@@ -49,11 +50,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rank: 5
   suit: 1
+  ID: 5C
   isAttacking: 0
   isDefended: 0
   canBePlayed: 0
   defendedByCard: {fileID: 0}
+  onBoard: 0
   isTrumpSuit: 0
+  cardHolder: {fileID: 0}
 --- !u!114 &2081939512928335323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc2d19f60e40254b995d88f71497edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasActiveCardSlot: 0
+  isMovingSomething: 0
 --- !u!65 &-6103322725040424929
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -79,6 +85,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 3, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2873581571215910351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc2d19f60e40254b995d88f71497edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasActiveCardSlot: 0
+  isMovingSomething: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0

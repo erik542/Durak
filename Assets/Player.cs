@@ -58,16 +58,16 @@ public class Player : MonoBehaviour
                 hand.GetCardsPile().Remove(card.gameObject);
                 hand.DecreaseHandSize();
                 enterPlayHandler.InvokeAllListeners(board);
-                print(card.name + " was played");
+                print(card.ID + " was played");
             }
             else
             {
-                print(card.name + " can't be played");
+                print(card.ID + " can't be played");
             }
         }
         else
         {
-            print(card.name + " is not in hand");
+            print(card.ID + " is not in hand");
         }
     }
 
@@ -84,21 +84,21 @@ public class Player : MonoBehaviour
                     cardOnBoard.defendedByCard = cardInHand;
                     hand.DecreaseHandSize();
                     enterPlayHandler.InvokeAllListeners(board);
-                    print(cardInHand.name + " was played");
+                    print(cardInHand.ID + " was played");
                 }
                 else
                 {
-                    print(cardInHand.name + " cannot be played on " + cardOnBoard.name);
+                    print(cardInHand.ID + " cannot be played on " + cardOnBoard.ID);
                 }
             }
             else
             {
-                print(cardInHand.name + " cannot be played");
+                print(cardInHand.ID + " cannot be played");
             }
         }
         else
         {
-            print(cardInHand.name + " is not in hand");
+            print(cardInHand.ID + " is not in hand");
         }
     }
 
