@@ -17,7 +17,7 @@ public class Card : MonoBehaviour
     public bool isTrumpSuit;
     public Player cardHolder;
     
-    Zone currentZone;
+    [SerializeField] Zone currentZone;
     GameState gameState;
 
     protected void Awake()

@@ -47,7 +47,7 @@ public class Deck : Zone
         cardList.AddFirst(card);
         card.SetCurrentZone(this);
         deckSize++;
-        cardsPile.Add(Instantiate(card.gameObject), false);
+        cardsPile.Add(card.gameObject, false);
     }
 
     public void DrawACard(Player player)
@@ -57,9 +57,9 @@ public class Deck : Zone
             Zone.TransferCard(cardList.First.Value, this, player.GetHand());
             cardList.First.Value.cardHolder = player;
             player.GetHand().IncreaseHandSize();
-            cardList.RemoveFirst();
             cardsPile.RemoveAt(cardsPile.Cards.Count - 1);
             deckSize--;
+            cardList.RemoveFirst();
         }
     }
 

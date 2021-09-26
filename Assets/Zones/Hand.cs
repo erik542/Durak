@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Hand : Zone
 {
-    [SerializeField] CardsPile cardsPile;
     
+    CardsPile cardsPile;
     Player player;
     int handSize;
     
@@ -14,6 +14,7 @@ public class Hand : Zone
     {
         base.Awake();
         player = gameObject.GetComponent<Player>();
+        cardsPile = GetComponentInChildren<CardsPile>();
     }
 
     private void Start()
@@ -24,7 +25,7 @@ public class Hand : Zone
     public override void AddCard(Card card)
     {
         base.AddCard(card);
-        cardsPile.Add(Instantiate(card.gameObject));
+        cardsPile.Add(card.gameObject);
     }
 
     public void RecalcHandSize()

@@ -56,14 +56,14 @@ public class CardMovementHandler : MonoBehaviour
     {
         if(isMovingSomething)
         {
-            card.cardHolder.AttackWithCard(card);
             hoverManager.PublishCardSlot();
             gameObject.layer = 0;
             isMovingSomething = false;
             hoverManager.Unsubscribe();
             if (hasActiveCardSlot)
             {
-                activeCardSlot.cardsPile.Add(Instantiate(card.gameObject));
+                activeCardSlot.cardsPile.Add(card.gameObject);
+                card.cardHolder.AttackWithCard(card);
             }
             else
             {
