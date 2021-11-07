@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
                 hand.GetCardsPile().Remove(card.gameObject);
                 hand.DecreaseHandSize();
                 enterPlayHandler.InvokeAllListeners(board);
+                card.canBePlayed = false;
                 print(card.ID + " was played");
             }
             else

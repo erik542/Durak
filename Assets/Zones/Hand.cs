@@ -76,6 +76,7 @@ public class Hand : Zone
 
     public void UpdatePlayableCards(List<Card> cardList)
     {
+        MakeHandUnplayable();
         if (player.isAttacking)
         {
             foreach (Card card in cardList)
@@ -86,10 +87,6 @@ public class Hand : Zone
                     {
                         cards[cardName].canBePlayed = true;
                     }
-                    else
-                    {
-                        cards[cardName].canBePlayed = false;
-                    }
                 }
             }
         }
@@ -99,13 +96,9 @@ public class Hand : Zone
             {
                 foreach(string cardName in cards.Keys)
                 {
-                    if ((card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank() || (!card.isTrumpSuit && cards[cardName].isTrumpSuit)))
+                    if (!card.isDefended && card.isAttacking && (card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank() || (!card.isTrumpSuit && cards[cardName].isTrumpSuit)))
                     {
                         cards[cardName].canBePlayed = true;
-                    }
-                    else
-                    {
-                        cards[cardName].canBePlayed = false;
                     }
                 }
             }

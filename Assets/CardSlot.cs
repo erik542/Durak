@@ -10,7 +10,7 @@ public class CardSlot : MonoBehaviour
     private void Awake()
     {
         hoverManager = GetComponentInParent<HoverManager>();
-        cardsPile = GetComponent<CardsPile>();
+        cardsPile = GetComponentInChildren<CardsPile>();
     }
 
     private void OnMouseEnter()
