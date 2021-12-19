@@ -7,7 +7,9 @@ public class Card : MonoBehaviour
 {
     [SerializeField] int rank;
     [SerializeField] Suit suit;
-    
+    [SerializeField] GameObject cardSelectionFrame;
+    [SerializeField] Zone currentZone;
+
     public string ID;
     public bool isAttacking;
     public bool isDefended;
@@ -17,17 +19,19 @@ public class Card : MonoBehaviour
     public bool isTrumpSuit;
     public Player cardHolder;
     
-    [SerializeField] Zone currentZone;
     GameState gameState;
+    MeshRenderer[] cardSelectionFrameRenderers;
 
     protected void Awake()
     {
         gameState = FindObjectOfType<GameState>();
+        cardSelectionFrameRenderers = GetComponentsInChildren<MeshRenderer>();
     }
 
     private void Start()
     {
         isTrumpSuit = suit == gameState.GetTrumpSuit();
+        ToggleSelectionFrameRenderers(false);
     }
 
     public void SetCurrentZone(Zone zone)
@@ -60,5 +64,13 @@ public class Card : MonoBehaviour
     {
         onBoard = false;
         print(onBoard);
+    }
+
+    public void ToggleSelectionFrameRenderers(bool value)
+    {
+        foreach (MeshRenderer meshRenderer in cardSelectionFrameRenderers)
+        {
+            meshRenderer.enabled = value;
+        }
     }
 }

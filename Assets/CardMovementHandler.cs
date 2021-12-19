@@ -83,4 +83,14 @@ public class CardMovementHandler : MonoBehaviour
         activeCardSlot = null;
         hasActiveCardSlot = false;
     }
+
+    private void OnMouseExit()
+    {
+        card.ToggleSelectionFrameRenderers(false);
+    }
+
+    private void OnMouseEnter()
+    {
+        card.ToggleSelectionFrameRenderers(true);
+    }
 }

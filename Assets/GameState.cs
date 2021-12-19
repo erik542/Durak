@@ -60,8 +60,12 @@ public class GameState : MonoBehaviour
 
     public void EndTurn()
     {
-        DealHandsUp();
         CheckForDefenseSuccess();
+        if (!defenseSuccessful)
+        {
+            players[currentDefender].TakeCardsOnBoard();
+        }
+        DealHandsUp();
         ResetPlayers();
         currentAttacker = GetNextAttacker(defenseSuccessful);
         currentDefender = GetNextDefender();
@@ -101,7 +105,7 @@ public class GameState : MonoBehaviour
         {
             if (card.isAttacking && !card.isDefended)
             {
-                defenseSuccessful = false;
+                 defenseSuccessful = false;
             }
         }
     }
