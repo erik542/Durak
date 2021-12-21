@@ -63,7 +63,7 @@ public class GameState : MonoBehaviour
         CheckForDefenseSuccess();
         if (!defenseSuccessful)
         {
-            players[currentDefender].TakeCardsOnBoard();
+            
         }
         DealHandsUp();
         ResetPlayers();

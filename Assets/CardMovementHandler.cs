@@ -62,8 +62,10 @@ public class CardMovementHandler : MonoBehaviour
             hoverManager.Unsubscribe();
             if (hasActiveCardSlot)
             {
-                activeCardSlot.cardsPile.Add(card.gameObject);
+                activeCardSlot.GetCardsPile().Add(card.gameObject);
+                activeCardSlot.SetCard(card);
                 card.cardHolder.AttackWithCard(card);
+                
             }
             else
             {

@@ -5,11 +5,13 @@ using UnityEngine;
 public class Board : Zone
 {
     Discard discard;
+    CardSlot[] cardSlots;
 
     private new void Awake()
     {
         base.Awake();
         discard = FindObjectOfType<Discard>();
+        cardSlots = GetComponentsInChildren<CardSlot>();
     }
 
     public void DiscardCard(Card card)
@@ -28,19 +30,37 @@ public class Board : Zone
         }
     }
 
-    public void BounceCard(Card card, Player player)
+    public void BounceBoard(Player player)
     {
-        if (card.GetCurrentZone() is Board)
+        foreach (CardSlot slot in cardSlots)
         {
-            Zone.TransferCard(card, this, player.GetHand());
-            card.isAttacking = false;
-            card.isDefended = false;
-            card.defendedByCard = null;
-            print(card.ID + " was bounced to " + player.name);
+            BounceCard(player, slot);
+        }
+    }
+
+    public void BounceCard(Player player, CardSlot slot)
+    {
+        if (slot.HasCard())
+        {
+            Card card = slot.GetCard();
+            if (card.GetCurrentZone() is Board)
+            {
+                Zone.TransferCard(card, this, player.GetHand());
+                card.isAttacking = false;
+                card.isDefended = false;
+                card.defendedByCard = null;
+                slot.GetCardsPile().Remove(card.gameObject);
+                player.GetHand().GetCardsPile().Add(card.gameObject);
+                print(card.ID + " was bounced to " + player.name);
+            }
+            else
+            {
+                print(card.ID + " is not on board");
+            }
         }
         else
         {
-            print(card.ID + " is not on board");
+            print(slot.name + " does not have a card to bounce");
         }
     }
 

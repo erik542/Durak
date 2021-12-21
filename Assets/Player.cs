@@ -103,15 +103,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void TakeCardsOnBoard()
-    {
-        List<Card> cardList = board.GetCardsOnBoard();
-        foreach (Card card in cardList)
-        {
-            board.BounceCard(card, this);
-            hand.IncreaseHandSize();
-        }
-    }
+    //public void TakeCardsOnBoard()
+    //{
+        //List<Card> cardList = board.GetCardsOnBoard();
+        //foreach (Card card in cardList)
+        //{
+        //    board.BounceCard(card, this);
+        //    hand.IncreaseHandSize();
+        //}
+    //}
 
     public Player GetAlly()
     {

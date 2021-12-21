@@ -5,7 +5,9 @@ using UnityEngine;
 public class CardSlot : MonoBehaviour
 {
     private HoverManager hoverManager;
-    public CardsPile cardsPile;
+    private CardsPile cardsPile;
+    private bool hasCard;
+    private Card card;
 
     private void Awake()
     {
@@ -21,5 +23,32 @@ public class CardSlot : MonoBehaviour
     private void OnMouseExit()
     {
         hoverManager.ClearCardSlot();
+    }
+
+    public CardsPile GetCardsPile()
+    {
+        return cardsPile;
+    }
+
+    public void SetCard(Card newCard)
+    {
+        card = newCard;
+        hasCard = true;
+    }
+
+    public void RemoveCard()
+    {
+        card = null;
+        hasCard = false;
+    }
+
+    public Card GetCard()
+    {
+        return card;
+    }
+
+    public bool HasCard()
+    {
+        return hasCard;
     }
 }

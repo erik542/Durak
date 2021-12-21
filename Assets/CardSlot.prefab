@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1813650188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1813650189}
+  m_Layer: 0
+  m_Name: CardHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1813650189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813650188}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 7548999124142816941}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2288284568232220948
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,6 +41,7 @@ GameObject:
   - component: {fileID: 2288284568232220949}
   - component: {fileID: 2288284568232220951}
   - component: {fileID: 2288284568232220950}
+  - component: {fileID: 1439683102}
   m_Layer: 0
   m_Name: CardSlot
   m_TagString: Untagged
@@ -27,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 2288284568232220948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 7548999124142816941}
   m_Father: {fileID: 0}
@@ -44,7 +75,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2288284568232220950
 MonoBehaviour:
@@ -58,6 +89,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999b28552a6ac974595c5ca8d2ac6cb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardsPile: {fileID: 0}
+--- !u!114 &1439683102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2288284568232220948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a00e44c4a752041af6111669365475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 0
+  width: 1
+  maxCardAngle: 5
+  yPerCard: -0.005
+  zDistance: 0
+  moveDuration: 0.5
+  cardHolderPrefab: {fileID: 1813650189}
 --- !u!1001 &5832231953433732853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83,12 +134,12 @@ PrefabInstance:
     - target: {fileID: 4049631869226834008, guid: 9d7857a3cbac0964f9d000325ef2c15f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.1000004
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4049631869226834008, guid: 9d7857a3cbac0964f9d000325ef2c15f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4049631869226834008, guid: 9d7857a3cbac0964f9d000325ef2c15f,
         type: 3}
@@ -113,7 +164,7 @@ PrefabInstance:
     - target: {fileID: 4049631869226834008, guid: 9d7857a3cbac0964f9d000325ef2c15f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4049631869226834008, guid: 9d7857a3cbac0964f9d000325ef2c15f,
         type: 3}
@@ -133,6 +184,26 @@ PrefabInstance:
     - target: {fileID: 4049631869226834008, guid: 9d7857a3cbac0964f9d000325ef2c15f,
         type: 3}
       propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4506223511492856257, guid: 9d7857a3cbac0964f9d000325ef2c15f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171270493628161809, guid: 9d7857a3cbac0964f9d000325ef2c15f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5706587115371874609, guid: 9d7857a3cbac0964f9d000325ef2c15f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186335021767550615, guid: 9d7857a3cbac0964f9d000325ef2c15f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
