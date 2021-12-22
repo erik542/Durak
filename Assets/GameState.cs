@@ -61,9 +61,13 @@ public class GameState : MonoBehaviour
     public void EndTurn()
     {
         CheckForDefenseSuccess();
-        if (!defenseSuccessful)
+        if (defenseSuccessful)
         {
-            
+            board.DiscardCardsOnBoard();
+        }
+        else
+        {
+            board.BounceBoard(players[currentDefender]);
         }
         DealHandsUp();
         ResetPlayers();

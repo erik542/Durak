@@ -7,12 +7,17 @@ public class CardSlot : MonoBehaviour
     private HoverManager hoverManager;
     private CardsPile cardsPile;
     private bool hasCard;
-    private Card card;
+    private int cardCount;
+    private List<Card> cardList;
+    private bool isFull;
+    private int maxCards = 2;
 
     private void Awake()
     {
         hoverManager = GetComponentInParent<HoverManager>();
         cardsPile = GetComponentInChildren<CardsPile>();
+        cardList = new List<Card>();
+        cardCount = 0;
     }
 
     private void OnMouseEnter()
@@ -30,25 +35,42 @@ public class CardSlot : MonoBehaviour
         return cardsPile;
     }
 
-    public void SetCard(Card newCard)
+    public void AddCard(Card card)
     {
-        card = newCard;
+        cardList.Add(card);
+        cardsPile.Add(card.gameObject);
         hasCard = true;
+        cardCount++;
+        if (cardCount == maxCards)
+        {
+            isFull = true;
+        }
     }
 
-    public void RemoveCard()
+    public void RemoveCard(Card card)
     {
-        card = null;
-        hasCard = false;
+        cardList.Remove(card);
+        cardsPile.Remove(card.gameObject);
+        cardCount--;
+        isFull = false;
+        if (cardCount == 0)
+        {
+            hasCard = false;
+        }
     }
 
-    public Card GetCard()
+    public List<Card> GetCardList()
     {
-        return card;
+        return cardList;
     }
 
     public bool HasCard()
     {
         return hasCard;
+    }
+
+    public bool IsFull()
+    {
+        return isFull;
     }
 }

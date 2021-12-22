@@ -14,48 +14,73 @@ public class Board : Zone
         cardSlots = GetComponentsInChildren<CardSlot>();
     }
 
-    public void DiscardCard(Card card)
+    public void DiscardCardsOnBoard()
     {
-        if (card.GetCurrentZone() is Board)
+        foreach (CardSlot slot in cardSlots)
         {
-            Zone.TransferCard(card, this, discard);
-            card.isAttacking = false;
-            card.isDefended = false;
-            card.defendedByCard = null;
-            print(card.ID + " was discarded");
+            DiscardCardsInSlot(slot);
+        }
+    }
+
+    public void DiscardCardsInSlot(CardSlot slot)
+    {
+        if (slot.HasCard())
+        {
+            List<Card> cardList = slot.GetCardList();
+            foreach (Card card in cardList)
+            {
+                if (card.GetCurrentZone() is Board)
+                {
+                    Zone.TransferCard(card, this, discard);
+                    card.isAttacking = false;
+                    card.isDefended = false;
+                    card.defendedByCard = null;
+                    slot.RemoveCard(card);
+                    discard.GetCardsPile().Add(card.gameObject);
+                    print(card.ID + " was discarded");
+                }
+                else
+                {
+                    print(card.ID + " is not on board");
+                }
+            }
         }
         else
         {
-            print(card.ID + " is not on board");
+            print(slot.name + " does not have a card to discard");
         }
+        
     }
 
     public void BounceBoard(Player player)
     {
         foreach (CardSlot slot in cardSlots)
         {
-            BounceCard(player, slot);
+            BounceCardsInSlot(player, slot);
         }
     }
 
-    public void BounceCard(Player player, CardSlot slot)
+    public void BounceCardsInSlot(Player player, CardSlot slot)
     {
         if (slot.HasCard())
         {
-            Card card = slot.GetCard();
-            if (card.GetCurrentZone() is Board)
+            List<Card> cardList = slot.GetCardList();
+            foreach (Card card in cardList)
             {
-                Zone.TransferCard(card, this, player.GetHand());
-                card.isAttacking = false;
-                card.isDefended = false;
-                card.defendedByCard = null;
-                slot.GetCardsPile().Remove(card.gameObject);
-                player.GetHand().GetCardsPile().Add(card.gameObject);
-                print(card.ID + " was bounced to " + player.name);
-            }
-            else
-            {
-                print(card.ID + " is not on board");
+                if (card.GetCurrentZone() is Board)
+                {
+                    Zone.TransferCard(card, this, player.GetHand());
+                    card.isAttacking = false;
+                    card.isDefended = false;
+                    card.defendedByCard = null;
+                    slot.RemoveCard(card);
+                    player.GetHand().AddCard(card);
+                    print(card.ID + " was bounced to " + player.name);
+                }
+                else
+                {
+                    print(card.ID + " is not on board");
+                }
             }
         }
         else
@@ -77,14 +102,5 @@ public class Board : Zone
             cardList.Add(card);
         }
         return cardList;
-    }
-
-    public void DiscardCardsOnBoard()
-    {
-        List<Card> cardList = GetCardsOnBoard();
-        foreach (Card card in cardList)
-        {
-            DiscardCard(card);
-        }
     }
 }
