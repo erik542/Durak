@@ -3482,11 +3482,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 0.5
   width: 1
-  maxCardAngle: 5
+  maxCardAngle: 0
   yPerCard: -0.005
   zDistance: 0
   moveDuration: 0.5
-  cardHolderPrefab: {fileID: 1431235418}
+  cardHolderPrefab: {fileID: 1137075811}
 --- !u!4 &1437903870 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9285c33cb5a501040ae701117b76b31b,
