@@ -77,7 +77,7 @@ public class GameState : MonoBehaviour
         players[currentDefender].isDefending = true;
         players[currentAttacker].GetAlly().isAttacking = true;
         players[currentAttacker].GetHand().MakeHandPlayableForAttack();
-        //TODO: test this
+        defenseSuccessful = true;
     }
 
     public void ResetPlayers()
@@ -188,5 +188,10 @@ public class GameState : MonoBehaviour
             }
         }
         return endTurnFlag;
+    }
+
+    public bool CheckCardDefense(Card cardInHand, Card cardOnBoard)
+    {
+        return (cardInHand.GetSuit() == cardOnBoard.GetSuit() && cardInHand.GetRank() > cardOnBoard.GetRank()) || (cardInHand.isTrumpSuit && !cardOnBoard.isTrumpSuit);
     }
 }

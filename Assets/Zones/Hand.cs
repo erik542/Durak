@@ -22,9 +22,11 @@ public class Hand : Zone
         RecalcHandSize();
     }
 
-    public override void AddCard(Card card)
+    public new void AddCard(Card card)
     {
-        base.AddCard(card);
+        Zone.TransferCard(card, card.GetCurrentZone(),this);
+        IncreaseHandSize();
+        card.cardHolder = player;
         cardsPile.Add(card.gameObject);
     }
 

@@ -31,12 +31,10 @@ public class Board : Zone
             {
                 if (card.GetCurrentZone() is Board)
                 {
-                    Zone.TransferCard(card, this, discard);
                     card.isAttacking = false;
                     card.isDefended = false;
                     card.defendedByCard = null;
-                    slot.RemoveCard(card);
-                    discard.GetCardsPile().Add(card.gameObject);
+                    discard.AddCard(card);
                     print(card.ID + " was discarded");
                 }
                 else
@@ -44,6 +42,7 @@ public class Board : Zone
                     print(card.ID + " is not on board");
                 }
             }
+            slot.RemoveAllCards();
         }
         else
         {
@@ -69,11 +68,9 @@ public class Board : Zone
             {
                 if (card.GetCurrentZone() is Board)
                 {
-                    Zone.TransferCard(card, this, player.GetHand());
                     card.isAttacking = false;
                     card.isDefended = false;
                     card.defendedByCard = null;
-                    slot.RemoveCard(card);
                     player.GetHand().AddCard(card);
                     print(card.ID + " was bounced to " + player.name);
                 }
@@ -82,6 +79,7 @@ public class Board : Zone
                     print(card.ID + " is not on board");
                 }
             }
+            slot.RemoveAllCards();
         }
         else
         {

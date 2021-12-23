@@ -46,17 +46,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void PlayCard(Card card)
+    {
+        Zone.TransferCard(card, hand, board);
+        hand.GetCardsPile().Remove(card.gameObject);
+        hand.DecreaseHandSize();
+    }
+
     public void AttackWithCard(Card card)
     {
         if (hand.IsCardInHand(card))
         {
             if (card.canBePlayed)
             {
-                Zone.TransferCard(card, hand, board);
+                PlayCard(card);   
                 card.isAttacking = true;
                 card.isDefended = false;
-                hand.GetCardsPile().Remove(card.gameObject);
-                hand.DecreaseHandSize();
                 enterPlayHandler.InvokeAllListeners(board);
                 card.canBePlayed = false;
                 print(card.ID + " was played");
@@ -78,19 +83,11 @@ public class Player : MonoBehaviour
         {
             if (cardInHand.canBePlayed)
             {
-                if (CheckCardDefense(cardInHand, cardOnBoard))
-                {
-                    Zone.TransferCard(cardInHand, hand, board);
-                    cardOnBoard.isDefended = true;
-                    cardOnBoard.defendedByCard = cardInHand;
-                    hand.DecreaseHandSize();
-                    enterPlayHandler.InvokeAllListeners(board);
-                    print(cardInHand.ID + " was played");
-                }
-                else
-                {
-                    print(cardInHand.ID + " cannot be played on " + cardOnBoard.ID);
-                }
+                PlayCard(cardInHand);
+                cardOnBoard.isDefended = true;
+                cardOnBoard.defendedByCard = cardInHand;
+                enterPlayHandler.InvokeAllListeners(board);
+                print(cardInHand.ID + " was played");
             }
             else
             {
@@ -102,16 +99,6 @@ public class Player : MonoBehaviour
             print(cardInHand.ID + " is not in hand");
         }
     }
-
-    //public void TakeCardsOnBoard()
-    //{
-        //List<Card> cardList = board.GetCardsOnBoard();
-        //foreach (Card card in cardList)
-        //{
-        //    board.BounceCard(card, this);
-        //    hand.IncreaseHandSize();
-        //}
-    //}
 
     public Player GetAlly()
     {
@@ -130,10 +117,5 @@ public class Player : MonoBehaviour
         {
             gameState.EndTurn();
         }
-    }
-
-    public bool CheckCardDefense(Card cardInHand, Card cardOnBoard)
-    {
-        return (cardInHand.GetSuit() == cardOnBoard.GetSuit() && cardInHand.GetRank() > cardOnBoard.GetRank()) || (cardInHand.isTrumpSuit && !cardOnBoard.isTrumpSuit);
     }
 }

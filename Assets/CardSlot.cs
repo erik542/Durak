@@ -73,4 +73,12 @@ public class CardSlot : MonoBehaviour
     {
         return isFull;
     }
+
+    public void RemoveAllCards()
+    {
+        for (int i = cardList.Count - 1; i >= 0; i--)
+        {
+            RemoveCard(cardList[i]);
+        }
+    }
 }

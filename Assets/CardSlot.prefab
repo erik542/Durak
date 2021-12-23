@@ -89,7 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999b28552a6ac974595c5ca8d2ac6cb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardsPile: {fileID: 0}
 --- !u!114 &1439683102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +105,7 @@ MonoBehaviour:
   width: 1
   maxCardAngle: 5
   yPerCard: -0.005
-  zDistance: 0
+  zDistance: 1
   moveDuration: 0.5
   cardHolderPrefab: {fileID: 1813650189}
 --- !u!1001 &5832231953433732853

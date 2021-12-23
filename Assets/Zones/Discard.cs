@@ -19,7 +19,7 @@ public class Discard : Zone
 
     public new void AddCard(Card card)
     {
-        //base.AddCard(card);
+        Zone.TransferCard(card, card.GetCurrentZone(), this);
         cardsPile.Add(card.gameObject);
     }
 }

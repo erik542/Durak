@@ -13,11 +13,13 @@ public class CardMovementHandler : MonoBehaviour
     public bool hasActiveCardSlot;
     public bool isMovingSomething;
     private Vector3 originalPosition;
+    private GameState gameState;
 
     private void Awake()
     {
         card = GetComponent<Card>();
         hoverManager = FindObjectOfType<HoverManager>();
+        gameState = FindObjectOfType<GameState>();
     }
 
     private void Start()
@@ -62,16 +64,20 @@ public class CardMovementHandler : MonoBehaviour
             hoverManager.Unsubscribe();
             if (hasActiveCardSlot)
             {
-                if (card.cardHolder.isAttacking)
+                if (card.cardHolder.isAttacking && !activeCardSlot.HasCard())
                 {
                     card.cardHolder.AttackWithCard(card);
+                    activeCardSlot.AddCard(card);
                 }
-                else if (card.cardHolder.isDefending && activeCardSlot.HasCard())
+                else if (card.cardHolder.isDefending && activeCardSlot.HasCard() && !activeCardSlot.IsFull() && gameState.CheckCardDefense(card, activeCardSlot.GetCardList()[0]))
                 {
-                    //TODO: Fix
-                    //card.cardHolder.DefendWithCard(card, activeCardSlot.GetCard());
+                    card.cardHolder.DefendWithCard(card, activeCardSlot.GetCardList()[0]);
+                    activeCardSlot.AddCard(card);
                 }
-                activeCardSlot.AddCard(card);
+                else
+                {
+                    card.transform.position = originalPosition;
+                }
             }
             else
             {
