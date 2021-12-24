@@ -12,6 +12,9 @@ public class CardSlot : MonoBehaviour
     private bool isFull;
     private int maxCards = 2;
 
+    [SerializeField] Material slotAvailableMaterial;
+    [SerializeField] Material slotUnAvailableMaterial;
+
     private void Awake()
     {
         hoverManager = GetComponentInParent<HoverManager>();

@@ -71,13 +71,29 @@ public class GameState : MonoBehaviour
         }
         DealHandsUp();
         ResetPlayers();
-        currentAttacker = GetNextAttacker(defenseSuccessful);
-        currentDefender = GetNextDefender();
-        players[currentAttacker].isAttacking = true;
-        players[currentDefender].isDefending = true;
-        players[currentAttacker].GetAlly().isAttacking = true;
-        players[currentAttacker].GetHand().MakeHandPlayableForAttack();
-        defenseSuccessful = true;
+        if (!CheckForGameEnd())
+        {
+            currentAttacker = GetNextAttacker(defenseSuccessful);
+            currentDefender = GetNextDefender();
+            players[currentAttacker].isAttacking = true;
+            players[currentDefender].isDefending = true;
+            players[currentAttacker].GetAlly().isAttacking = true;
+            players[currentAttacker].GetHand().MakeHandPlayableForAttack();
+            defenseSuccessful = true;
+        }
+    }
+    
+    private bool CheckForGameEnd()
+    {
+        int playersRemaining = 0;
+        foreach (Player player in players)
+        {
+            if (player.GetHand().GetHandSize() > 0)
+            {
+                playersRemaining++;
+            }
+        }
+        return playersRemaining <= 1;
     }
 
     public void ResetPlayers()
