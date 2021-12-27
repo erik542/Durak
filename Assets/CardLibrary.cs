@@ -21,7 +21,6 @@ public class CardLibrary : MonoBehaviour
         if (cardLibrary.ContainsKey(cardName))
         {
             return cardLibrary[cardName];
-            //return Instantiate(cardLibrary[cardName]);
         }
         else
         {

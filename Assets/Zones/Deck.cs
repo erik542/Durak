@@ -37,7 +37,7 @@ public class Deck : Zone
         }
         for (int i = 0; i < tempCardList.Length; i++)
         {
-            cardList.AddLast(tempCardList[i]);
+            cardList.AddFirst(tempCardList[i]);
         }
     }
 
@@ -55,7 +55,7 @@ public class Deck : Zone
         if (deckSize > 0)
         {
             player.GetHand().AddCard(cardList.First.Value);
-            cardsPile.RemoveAt(cardsPile.Cards.Count - 1);
+            cardsPile.Remove(cardList.First.Value.gameObject);
             deckSize--;
             cardList.RemoveFirst();
         }
@@ -85,7 +85,7 @@ public class Deck : Zone
         {
             AddCard(card);
         }
-        //Shuffle();
+        Shuffle();
     }
 
     public Card GetLastCard()

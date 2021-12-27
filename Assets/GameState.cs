@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
-    [SerializeField] int baseHandSize = 3;
+    [SerializeField] int baseHandSize = 20;
     [SerializeField] int initialAttacker = 0;
-    [SerializeField] Card testCard;
 
     int currentDefender;
     int currentAttacker;
@@ -44,7 +43,6 @@ public class GameState : MonoBehaviour
         SetAllies();
         currentAttacker = initialAttacker;
         EndTurn();
-        //players[currentAttacker].AttackWithCard(testCard);
     }
 
     private void SetAllies()

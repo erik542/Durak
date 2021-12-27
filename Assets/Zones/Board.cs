@@ -46,7 +46,7 @@ public class Board : Zone
         }
         else
         {
-            print(slot.name + " does not have a card to discard");
+            //Nothing happens when there is not a card in the slot to discard
         }
         
     }

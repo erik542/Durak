@@ -14,6 +14,7 @@ public class CardMovementHandler : MonoBehaviour
     public bool isMovingSomething;
     private Vector3 originalPosition;
     private GameState gameState;
+    
 
     private void Awake()
     {
@@ -77,11 +78,13 @@ public class CardMovementHandler : MonoBehaviour
                 else
                 {
                     card.transform.position = originalPosition;
+                    OnMouseExit();
                 }
             }
             else
             {
                 card.transform.position = originalPosition;
+                OnMouseExit();
             }
         }
     }
@@ -100,11 +103,11 @@ public class CardMovementHandler : MonoBehaviour
 
     private void OnMouseExit()
     {
-        card.ToggleSelectionFrameRenderers(false);
+        card.ToggleCardHoverState(false);
     }
 
     private void OnMouseEnter()
     {
-        card.ToggleSelectionFrameRenderers(true);
+        card.ToggleCardHoverState(true);
     }
 }

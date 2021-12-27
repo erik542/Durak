@@ -21,17 +21,19 @@ public class Card : MonoBehaviour
     
     GameState gameState;
     MeshRenderer[] cardSelectionFrameRenderers;
+    SpriteRenderer[] cardImageRenderers;
 
     protected void Awake()
     {
         gameState = FindObjectOfType<GameState>();
         cardSelectionFrameRenderers = GetComponentsInChildren<MeshRenderer>();
+        cardImageRenderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
     private void Start()
     {
         isTrumpSuit = suit == gameState.GetTrumpSuit();
-        ToggleSelectionFrameRenderers(false);
+        ToggleCardHoverState(false);
     }
 
     public void SetCurrentZone(Zone zone)
@@ -57,16 +59,31 @@ public class Card : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         onBoard = true;
-        print(onBoard);
     }
 
     private void OnTriggerExit(Collider other)
     {
         onBoard = false;
-        print(onBoard);
     }
 
-    public void ToggleSelectionFrameRenderers(bool value)
+    public void ToggleCardHoverState(bool value)
+    {
+        ToggleCardHoverImage(value);
+        ToggleSelectionFrameRenderers(value);
+    }
+
+    private void ToggleCardHoverImage(bool value)
+    {
+        foreach (SpriteRenderer spriteRenderer in cardImageRenderers)
+        {
+            if (spriteRenderer.sortingLayerID != 0)
+            {
+                spriteRenderer.enabled = value;
+            }
+        }
+    }
+
+    private void ToggleSelectionFrameRenderers(bool value)
     {
         foreach (MeshRenderer meshRenderer in cardSelectionFrameRenderers)
         {

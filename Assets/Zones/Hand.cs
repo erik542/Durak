@@ -98,7 +98,8 @@ public class Hand : Zone
             {
                 foreach(string cardName in cards.Keys)
                 {
-                    if (!card.isDefended && card.isAttacking && (card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank() || (!card.isTrumpSuit && cards[cardName].isTrumpSuit)))
+                    if (!card.isDefended && card.isAttacking && (card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank() 
+                        || (!card.isTrumpSuit && cards[cardName].isTrumpSuit)))
                     {
                         cards[cardName].canBePlayed = true;
                     }
