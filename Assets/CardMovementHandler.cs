@@ -30,7 +30,7 @@ public class CardMovementHandler : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (card.canBePlayed)
+        if (card.CanBePlayed())
         {
             screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
             originalPosition = card.gameObject.transform.position;

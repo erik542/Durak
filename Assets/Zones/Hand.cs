@@ -64,7 +64,7 @@ public class Hand : Zone
     {
         foreach (string cardName in cards.Keys)
         {
-            cards[cardName].canBePlayed = true;
+            cards[cardName].ToggleCardPlayability(true);
         }
     }
 
@@ -72,7 +72,7 @@ public class Hand : Zone
     {
         foreach (string cardName in cards.Keys)
         {
-            cards[cardName].canBePlayed = false;
+            cards[cardName].ToggleCardPlayability(false);
         }
     }
 
@@ -87,7 +87,7 @@ public class Hand : Zone
                 {
                     if (card.GetRank() == cards[cardName].GetRank())
                     {
-                        cards[cardName].canBePlayed = true;
+                        cards[cardName].ToggleCardPlayability(true);
                     }
                 }
             }
@@ -101,7 +101,7 @@ public class Hand : Zone
                     if (!card.isDefended && card.isAttacking && (card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank() 
                         || (!card.isTrumpSuit && cards[cardName].isTrumpSuit)))
                     {
-                        cards[cardName].canBePlayed = true;
+                        cards[cardName].ToggleCardPlayability(true);
                     }
                 }
             }

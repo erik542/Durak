@@ -57,13 +57,13 @@ public class Player : MonoBehaviour
     {
         if (hand.IsCardInHand(card))
         {
-            if (card.canBePlayed)
+            if (card.CanBePlayed())
             {
                 PlayCard(card);   
                 card.isAttacking = true;
                 card.isDefended = false;
                 enterPlayHandler.InvokeAllListeners(board);
-                card.canBePlayed = false;
+                card.ToggleCardPlayability(false);
                 print(card.ID + " was played");
             }
             else
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
     {
         if (hand.IsCardInHand(cardInHand))
         {
-            if (cardInHand.canBePlayed)
+            if (cardInHand.CanBePlayed())
             {
                 PlayCard(cardInHand);
                 cardOnBoard.isDefended = true;

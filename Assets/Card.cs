@@ -9,11 +9,13 @@ public class Card : MonoBehaviour
     [SerializeField] Suit suit;
     [SerializeField] GameObject cardSelectionFrame;
     [SerializeField] Zone currentZone;
+    [SerializeField] Material playableMaterial;
+    [SerializeField] Material unplayableMaterial;
 
     public string ID;
     public bool isAttacking;
     public bool isDefended;
-    public bool canBePlayed;
+    private bool canBePlayed;
     public Card defendedByCard;
     public bool onBoard;
     public bool isTrumpSuit;
@@ -89,5 +91,29 @@ public class Card : MonoBehaviour
         {
             meshRenderer.enabled = value;
         }
+    }
+
+    public void ToggleCardPlayability(bool value)
+    {
+        if (value)
+        {
+            foreach (SpriteRenderer spriteRenderer in cardImageRenderers)
+            {
+                spriteRenderer.material = playableMaterial;
+            }
+        }
+        else
+        {
+            foreach (SpriteRenderer spriteRenderer in cardImageRenderers)
+            {
+                spriteRenderer.material = unplayableMaterial;
+            }
+        }
+        canBePlayed = value;
+    }
+
+    public bool CanBePlayed()
+    {
+        return canBePlayed;
     }
 }
