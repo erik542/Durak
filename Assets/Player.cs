@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public bool hasEndedTurn;
     EnterPlayHandler enterPlayHandler;
     GameState gameState;
+    private bool isAI = true;
+    AI ai;
 
     private void Awake()
     {
@@ -21,6 +23,14 @@ public class Player : MonoBehaviour
         board = FindObjectOfType<Board>();
         enterPlayHandler = FindObjectOfType<EnterPlayHandler>();
         gameState = FindObjectOfType<GameState>();
+        if (GetComponent<AI>() == null)
+        {
+            isAI = false;
+        }
+        else
+        {
+            ai = GetComponent<AI>();
+        }
     }
 
     private void Start()
@@ -117,5 +127,15 @@ public class Player : MonoBehaviour
         {
             gameState.EndTurn();
         }
+    }
+
+    public bool IsAI()
+    {
+        return isAI;
+    }
+
+    public AI GetAI()
+    {
+        return ai;
     }
 }

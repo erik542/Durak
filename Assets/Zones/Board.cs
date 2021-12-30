@@ -101,4 +101,9 @@ public class Board : Zone
         }
         return cardList;
     }
+
+    public CardSlot[] GetCardSlots()
+    {
+        return cardSlots;
+    }
 }

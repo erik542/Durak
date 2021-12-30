@@ -36,6 +36,10 @@ public class EnterPlayHandler : MonoBehaviour
         foreach (Player listener in enterPlayListeners.Keys)
         {
             listener.GetHand().UpdatePlayableCards(board.GetCardsOnBoard());
+            if (listener.IsAI())
+            {
+                listener.GetAI().Reevaluate();
+            }
         }
     }
 }

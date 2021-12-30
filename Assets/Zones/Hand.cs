@@ -8,6 +8,7 @@ public class Hand : Zone
     CardsPile cardsPile;
     Player player;
     int handSize;
+    List<Card> playableCards;
     
 
     private new void Awake()
@@ -15,6 +16,7 @@ public class Hand : Zone
         base.Awake();
         player = gameObject.GetComponent<Player>();
         cardsPile = GetComponentInChildren<CardsPile>();
+        playableCards = new List<Card>();
     }
 
     private void Start()
@@ -64,12 +66,13 @@ public class Hand : Zone
     {
         foreach (string cardName in cards.Keys)
         {
-            cards[cardName].ToggleCardPlayability(true);
+            MakeCardPlayable(cards[cardName]);
         }
     }
 
     public void MakeHandUnplayable()
     {
+        playableCards.Clear();
         foreach (string cardName in cards.Keys)
         {
             cards[cardName].ToggleCardPlayability(false);
@@ -87,7 +90,7 @@ public class Hand : Zone
                 {
                     if (card.GetRank() == cards[cardName].GetRank())
                     {
-                        cards[cardName].ToggleCardPlayability(true);
+                        MakeCardPlayable(cards[cardName]);
                     }
                 }
             }
@@ -101,10 +104,21 @@ public class Hand : Zone
                     if (!card.isDefended && card.isAttacking && (card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank() 
                         || (!card.isTrumpSuit && cards[cardName].isTrumpSuit)))
                     {
-                        cards[cardName].ToggleCardPlayability(true);
+                        MakeCardPlayable(cards[cardName]);
                     }
                 }
             }
         }
+    }
+
+    private void MakeCardPlayable(Card card)
+    {
+        card.ToggleCardPlayability(true);
+        playableCards.Add(card);
+    }
+
+    public List<Card> GetPlayableCards()
+    {
+        return playableCards;
     }
 }
