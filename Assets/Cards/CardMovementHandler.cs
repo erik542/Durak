@@ -67,13 +67,15 @@ public class CardMovementHandler : MonoBehaviour
             {
                 if (card.cardHolder.isAttacking && !activeCardSlot.HasCard())
                 {
+                    activeCardSlot.AddCard(card);
                     card.cardHolder.AttackWithCard(card);
-                    activeCardSlot.AddCard(card);
+                    
                 }
-                else if (card.cardHolder.isDefending && activeCardSlot.HasCard() && !activeCardSlot.IsFull() && gameState.CheckCardDefense(card, activeCardSlot.GetCardList()[0]))
+                else if (card.cardHolder.isDefending && activeCardSlot.HasCard() && !activeCardSlot.IsFull() && GameState.CheckCardDefense(card, activeCardSlot.GetCardList()[0]))
                 {
-                    card.cardHolder.DefendWithCard(card, activeCardSlot.GetCardList()[0]);
                     activeCardSlot.AddCard(card);
+                    card.cardHolder.DefendWithCard(card, activeCardSlot.GetCardList()[0]);
+                    
                 }
                 else
                 {

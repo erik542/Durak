@@ -204,7 +204,7 @@ public class GameState : MonoBehaviour
         return endTurnFlag;
     }
 
-    public bool CheckCardDefense(Card cardInHand, Card cardOnBoard)
+    public static bool CheckCardDefense(Card cardInHand, Card cardOnBoard)
     {
         return (cardInHand.GetSuit() == cardOnBoard.GetSuit() && cardInHand.GetRank() > cardOnBoard.GetRank()) || (cardInHand.isTrumpSuit && !cardOnBoard.isTrumpSuit);
     }

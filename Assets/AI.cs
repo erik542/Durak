@@ -19,9 +19,10 @@ public class AI : MonoBehaviour
 
     public void Reevaluate()
     {
+        List<Card> playableCards = hand.GetPlayableCards();
         if (player.isAttacking)
         {
-            if (hand.GetPlayableCards().Count > 0)
+            if (playableCards.Count > 0)
             {
                 Card cardToAttackWith = FindCardToAttackWith();
                 player.AttackWithCard(cardToAttackWith);
@@ -30,11 +31,51 @@ public class AI : MonoBehaviour
         }
         if (player.isDefending)
         {
-            if (hand.GetPlayableCards().Count > 0)
+            if (playableCards.Count > 0)
             {
-
+                DefendAgainstBoard(playableCards);
             }
         }
+    }
+
+    private void DefendAgainstBoard(List<Card> playableCards)
+    {
+        CardSlot[] cardSlots = board.GetCardSlots();
+        foreach (CardSlot slot in cardSlots)
+        {
+            if (slot.HasCard() && !slot.IsFull())
+            {
+                Card cardToDefendWith;
+                Card cardInSlot = slot.GetCardList()[0];
+                cardToDefendWith = GetCardToDefendWith(playableCards, cardInSlot);
+                player.DefendWithCard(cardToDefendWith, cardInSlot);
+                slot.AddCard(cardToDefendWith);
+            }
+        }
+    }
+
+    private Card PickRandomCardFromList(List<Card> cards)
+    {
+        return cards[Random.Range(0, cards.Count - 1)];
+    }
+
+    private Card GetCardToDefendWith(List<Card> playableCards, Card attackingCard)
+    {
+        List<Card> defendingCards = GetDefendingCards(playableCards, attackingCard);
+        return PickRandomCardFromList(defendingCards);
+    }
+
+    private List<Card> GetDefendingCards(List<Card> playableCards, Card attackingCard)
+    {
+        List<Card> Defendingcards = new List<Card>();
+        foreach (Card card in playableCards)
+        {
+            if (GameState.CheckCardDefense(card, attackingCard))
+            {
+                Defendingcards.Add(card);
+            }
+        }
+        return Defendingcards;
     }
 
     private void PlayCardInFirstSlot(Card card)
@@ -52,20 +93,6 @@ public class AI : MonoBehaviour
 
     private Card FindCardToAttackWith()
     {
-        List<float> cardChoiceValue = new List<float>();
-        List<Card> playableCards = hand.GetPlayableCards();
-        int topPick = 0;
-        for (int i = 0; i < playableCards.Count; i++)
-        {
-            cardChoiceValue.Add(Random.value);
-        }
-        for (int i = 0; i < cardChoiceValue.Count; i++)
-        {
-            if (cardChoiceValue[i] >= cardChoiceValue[topPick])
-            {
-                topPick = i;
-            }
-        }
-        return playableCards[topPick];
+        return PickRandomCardFromList(hand.GetPlayableCards());
     }
 }
