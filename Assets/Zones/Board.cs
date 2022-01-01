@@ -35,11 +35,9 @@ public class Board : Zone
                     card.isDefended = false;
                     card.defendedByCard = null;
                     discard.AddCard(card);
-                    print(card.ID + " was discarded");
                 }
                 else
                 {
-                    print(card.ID + " is not on board");
                 }
             }
             slot.RemoveAllCards();
@@ -72,18 +70,15 @@ public class Board : Zone
                     card.isDefended = false;
                     card.defendedByCard = null;
                     player.GetHand().AddCard(card);
-                    print(card.ID + " was bounced to " + player.name);
                 }
                 else
                 {
-                    print(card.ID + " is not on board");
                 }
             }
             slot.RemoveAllCards();
         }
         else
         {
-            print(slot.name + " does not have a card to bounce");
         }
     }
 

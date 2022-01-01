@@ -9,6 +9,7 @@ public class Hand : Zone
     Player player;
     int handSize;
     List<Card> playableCards;
+    GameState gameState;
     
 
     private new void Awake()
@@ -17,6 +18,7 @@ public class Hand : Zone
         player = gameObject.GetComponent<Player>();
         cardsPile = GetComponentInChildren<CardsPile>();
         playableCards = new List<Card>();
+        gameState = FindObjectOfType<GameState>();
     }
 
     private void Start()
@@ -79,32 +81,53 @@ public class Hand : Zone
         }
     }
 
-    public void UpdatePlayableCards(List<Card> cardList)
+    public void UpdatePlayableCards(List<Card> cardsOnBoard)
     {
         MakeHandUnplayable();
         if (player.isAttacking)
         {
-            foreach (Card card in cardList)
+            int undefendedCards = 0;
+            foreach (Card cardOnBoard in cardsOnBoard)
             {
-                foreach (string cardName in cards.Keys)
+                if (cardOnBoard.isAttacking && !cardOnBoard.isDefended)
                 {
-                    if (card.GetRank() == cards[cardName].GetRank())
+                    undefendedCards++;
+                }
+            }
+            if (undefendedCards < gameState.GetDefendingPlayer().GetHand().GetHandSize())
+            {
+                foreach (Card card in cardsOnBoard)
+                {
+                    foreach (string cardName in cards.Keys)
                     {
-                        MakeCardPlayable(cards[cardName]);
+                        if (card.GetRank() == cards[cardName].GetRank())
+                        {
+                            MakeCardPlayable(cards[cardName]);
+                        }
                     }
                 }
             }
         }
         else if (player.isDefending)
         {
-            foreach (Card card in cardList)
+            int undefendedCards = 0;
+            foreach (Card cardOnBoard in cardsOnBoard)
             {
-                foreach(string cardName in cards.Keys)
+                if (cardOnBoard.isAttacking && !cardOnBoard.isDefended)
                 {
-                    if (!card.isDefended && card.isAttacking && (card.GetSuit() == cards[cardName].GetSuit()) && (card.GetRank() < cards[cardName].GetRank() 
-                        || (!card.isTrumpSuit && cards[cardName].isTrumpSuit)))
+                    undefendedCards++;
+                }
+            }
+            foreach(Card cardOnBoard in cardsOnBoard)
+            {
+                if (undefendedCards > 0)
+                {
+                    foreach (string cardName in cards.Keys)
                     {
-                        MakeCardPlayable(cards[cardName]);
+                        if (GameState.CheckCardDefense(cards[cardName], cardOnBoard))
+                        {
+                            MakeCardPlayable(cards[cardName]);
+                        }
                     }
                 }
             }

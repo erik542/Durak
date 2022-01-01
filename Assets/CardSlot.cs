@@ -48,6 +48,7 @@ public class CardSlot : MonoBehaviour
         {
             isFull = true;
         }
+        print(card.ID + " was played in " + gameObject.name);
     }
 
     public void RemoveCard(Card card)

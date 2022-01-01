@@ -25,8 +25,9 @@ public class AI : MonoBehaviour
             if (playableCards.Count > 0)
             {
                 Card cardToAttackWith = FindCardToAttackWith();
-                player.AttackWithCard(cardToAttackWith);
                 PlayCardInFirstSlot(cardToAttackWith);
+                player.AttackWithCard(cardToAttackWith);
+                
             }
         }
         if (player.isDefending)
@@ -43,13 +44,16 @@ public class AI : MonoBehaviour
         CardSlot[] cardSlots = board.GetCardSlots();
         foreach (CardSlot slot in cardSlots)
         {
-            if (slot.HasCard() && !slot.IsFull())
+            if (slot.HasCard() && !slot.IsFull() && playableCards.Count > 0)
             {
-                Card cardToDefendWith;
                 Card cardInSlot = slot.GetCardList()[0];
-                cardToDefendWith = GetCardToDefendWith(playableCards, cardInSlot);
-                player.DefendWithCard(cardToDefendWith, cardInSlot);
-                slot.AddCard(cardToDefendWith);
+                List<Card> defendingCards = GetDefendingCards(playableCards, cardInSlot);
+                if (defendingCards.Count > 0)
+                {
+                    Card cardToDefendWith = GetCardToDefendWith(defendingCards, cardInSlot);
+                    slot.AddCard(cardToDefendWith);
+                    player.DefendWithCard(cardToDefendWith, cardInSlot);
+                }
             }
         }
     }
@@ -59,10 +63,9 @@ public class AI : MonoBehaviour
         return cards[Random.Range(0, cards.Count - 1)];
     }
 
-    private Card GetCardToDefendWith(List<Card> playableCards, Card attackingCard)
+    private Card GetCardToDefendWith(List<Card> cards, Card attackingCard)
     {
-        List<Card> defendingCards = GetDefendingCards(playableCards, attackingCard);
-        return PickRandomCardFromList(defendingCards);
+        return PickRandomCardFromList(cards);
     }
 
     private List<Card> GetDefendingCards(List<Card> playableCards, Card attackingCard)

@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 2288284568232220948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
   - {fileID: 7548999124142816941}
   m_Father: {fileID: 0}
@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999b28552a6ac974595c5ca8d2ac6cb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotAvailableMaterial: {fileID: 0}
+  slotUnAvailableMaterial: {fileID: 0}
 --- !u!114 &1439683102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,9 +103,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a00e44c4a752041af6111669365475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 0
+  height: -0.02
   width: 1
-  maxCardAngle: 5
+  maxCardAngle: 2
   yPerCard: -0.005
   zDistance: 1
   moveDuration: 0.5

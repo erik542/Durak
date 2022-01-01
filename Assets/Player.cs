@@ -74,16 +74,13 @@ public class Player : MonoBehaviour
                 card.isDefended = false;
                 enterPlayHandler.InvokeAllListeners(board);
                 card.ToggleCardPlayability(false);
-                print(card.ID + " was played");
             }
             else
             {
-                print(card.ID + " can't be played");
             }
         }
         else
         {
-            print(card.ID + " is not in hand");
         }
     }
 
@@ -97,16 +94,13 @@ public class Player : MonoBehaviour
                 cardOnBoard.isDefended = true;
                 cardOnBoard.defendedByCard = cardInHand;
                 enterPlayHandler.InvokeAllListeners(board);
-                print(cardInHand.ID + " was played");
             }
             else
             {
-                print(cardInHand.ID + " cannot be played");
             }
         }
         else
         {
-            print(cardInHand.ID + " is not in hand");
         }
     }
 

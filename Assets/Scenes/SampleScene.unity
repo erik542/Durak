@@ -7542,14 +7542,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1620810576}
     m_Modifications:
-    - target: {fileID: 1439683102, guid: ccee902ba04737544ae8de8e52a4edcf, type: 3}
-      propertyPath: height
-      value: -0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439683102, guid: ccee902ba04737544ae8de8e52a4edcf, type: 3}
-      propertyPath: maxCardAngle
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2288284568232220948, guid: ccee902ba04737544ae8de8e52a4edcf,
         type: 3}
       propertyPath: m_Name
@@ -7609,21 +7601,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2288284568232220949, guid: ccee902ba04737544ae8de8e52a4edcf,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2288284568232220949, guid: ccee902ba04737544ae8de8e52a4edcf,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2288284568232220949, guid: ccee902ba04737544ae8de8e52a4edcf,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccee902ba04737544ae8de8e52a4edcf, type: 3}
