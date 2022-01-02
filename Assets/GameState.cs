@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
     [SerializeField] int baseHandSize = 20;
     [SerializeField] int initialAttacker = 0;
+    [SerializeField] Canvas EndGameCanvas;
 
     int currentDefender;
     int currentAttacker;
@@ -39,6 +41,8 @@ public class GameState : MonoBehaviour
 
     private void StartGame()
     {
+        EndGameCanvas.enabled = false;
+        deck.InitializeDeckComposition();
         SetTrumpSuit(deck.GetLastCard().GetSuit());
         SetAllies();
         currentAttacker = initialAttacker;
@@ -75,7 +79,10 @@ public class GameState : MonoBehaviour
             currentDefender = GetNextDefender();
             players[currentAttacker].isAttacking = true;
             players[currentDefender].isDefending = true;
-            players[currentAttacker].GetAlly().isAttacking = true;
+            if (players[currentAttacker].HasAlly())
+            {
+                players[currentAttacker].GetAlly().isAttacking = true;
+            }            
             players[currentAttacker].GetHand().MakeHandPlayableForAttack();
             defenseSuccessful = true;
             if (players[currentAttacker].IsAI())
@@ -83,6 +90,20 @@ public class GameState : MonoBehaviour
                 players[currentAttacker].GetAI().Reevaluate();
             }
         }
+        else
+        {
+            EndGame();
+        }
+    }
+
+    public void EndGame()
+    {
+        EndGameCanvas.enabled = true;
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(0);
     }
     
     private bool CheckForGameEnd()
@@ -90,7 +111,17 @@ public class GameState : MonoBehaviour
         int playersRemaining = 0;
         foreach (Player player in players)
         {
-            if (player.GetHand().GetHandSize() > 0)
+            if (player.HasAlly())
+            {
+                foreach (Player otherPlayer in players)
+                {
+                    if (otherPlayer != player.GetAlly() && player.GetHand().GetHandSize() > 0)
+                    {
+                        playersRemaining++;
+                    }
+                }
+            }
+            else if (player.GetHand().GetHandSize() > 0)
             {
                 playersRemaining++;
             }
@@ -183,7 +214,11 @@ public class GameState : MonoBehaviour
         bool candidateFail = true;
         while(candidateFail)
         {
-            if (players[currentAttacker].GetAlly() != players[candidate] && players[candidate].GetHand().GetHandSize() > 0)
+            if (players[currentAttacker].HasAlly() && players[currentAttacker].GetAlly() != players[candidate] && players[candidate].GetHand().GetHandSize() > 0)
+            {
+                candidateFail = false;
+            }
+            else if (players[candidate].GetHand().GetHandSize() > 0)
             {
                 candidateFail = false;
             }

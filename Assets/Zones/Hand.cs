@@ -144,4 +144,17 @@ public class Hand : Zone
     {
         return playableCards;
     }
+
+    public List<Card> GetCardsInHand()
+    {
+        List<Card> cardsInHand = new List<Card>();
+        if (cards.Count > 0)
+        {
+            foreach (Card card in cards.Values)
+            {
+                cardsInHand.Add(card);
+            }
+        }
+        return cardsInHand;
+    }
 }

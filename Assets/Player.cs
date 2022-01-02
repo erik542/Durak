@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
     Hand hand;
     Board board;
     Deck deck;
-    Player ally;
+    [SerializeField] Player ally;
+    private bool hasAlly = false;
     public bool isAttacking;
     public bool isDefending;
     public bool hasEndedTurn;
@@ -30,6 +31,10 @@ public class Player : MonoBehaviour
         else
         {
             ai = GetComponent<AI>();
+        }
+        if (ally != null)
+        {
+            hasAlly = true;
         }
     }
 
@@ -131,5 +136,10 @@ public class Player : MonoBehaviour
     public AI GetAI()
     {
         return ai;
+    }
+
+    public bool HasAlly()
+    {
+        return hasAlly;
     }
 }

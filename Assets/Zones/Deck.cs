@@ -18,8 +18,7 @@ public class Deck : Zone
 
     private void Start()
     {
-        InitializeDeckComposition();
-        RecalcDeckSize();
+        
     }
 
     public void Shuffle()
@@ -79,13 +78,14 @@ public class Deck : Zone
         return deckSize;
     }
 
-    private void InitializeDeckComposition()
+    public void InitializeDeckComposition()
     {
         foreach (Card card in initialDeckComposition)
         {
             AddCard(card);
         }
         Shuffle();
+        RecalcDeckSize();
     }
 
     public Card GetLastCard()
