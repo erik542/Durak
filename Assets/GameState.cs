@@ -44,23 +44,35 @@ public class GameState : MonoBehaviour
         EndGameCanvas.enabled = false;
         deck.InitializeDeckComposition();
         SetTrumpSuit(deck.GetLastCard().GetSuit());
-        SetAllies();
         currentAttacker = initialAttacker;
         EndTurn();
     }
 
-    private void SetAllies()
+    public void TryToEndTurn()
     {
-        if (players.Length == 4)
-        {
-            for (int i = 0; i < players.Length; i++)
-            {
-                players[i].SetAlly(players[NextPlayer(NextPlayer(i))]);
-            }
-        }        
+        StartCoroutine(WaitForAIToFinishThinking());
     }
 
-    public void EndTurn()
+    IEnumerator WaitForAIToFinishThinking()
+    {
+        yield return new WaitUntil(()=> CheckForAIDoneThinking());
+        EndTurn();
+    }
+
+    private bool CheckForAIDoneThinking()
+    {
+        bool doneThinking = true;
+        foreach (Player player in players)
+        {
+            if (player.GetThinkingStatus() && (player.isAttacking || player.isDefending))
+            {
+                doneThinking = false;
+            }
+        }
+        return doneThinking;
+    }
+
+    private void EndTurn()
     {
         CheckForDefenseSuccess();
         if (defenseSuccessful)
@@ -87,7 +99,7 @@ public class GameState : MonoBehaviour
             defenseSuccessful = true;
             if (players[currentAttacker].IsAI())
             {
-                players[currentAttacker].GetAI().Reevaluate();
+                StartCoroutine(players[currentAttacker].GetAI().Reevaluate());
             }
         }
         else

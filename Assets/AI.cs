@@ -17,8 +17,10 @@ public class AI : MonoBehaviour
         hand = GetComponent<Hand>();
     }
 
-    public void Reevaluate()
+    public IEnumerator Reevaluate()
     {
+        player.UpdateThinkingStatus(true);
+        yield return new WaitForSeconds(Random.Range(minThinkingTime, maxThinkingTime));
         List<Card> playableCards = hand.GetPlayableCards();
         if (player.isAttacking)
         {
@@ -36,6 +38,7 @@ public class AI : MonoBehaviour
                 DefendAgainstBoard(playableCards);
             }
         }
+        player.UpdateThinkingStatus(false);
     }
 
     private void DefendAgainstBoard(List<Card> playableCards)

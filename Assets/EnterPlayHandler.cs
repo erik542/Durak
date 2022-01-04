@@ -38,7 +38,7 @@ public class EnterPlayHandler : MonoBehaviour
             listener.GetHand().UpdatePlayableCards(board.GetCardsOnBoard());
             if (listener.IsAI())
             {
-                listener.GetAI().Reevaluate();
+                StartCoroutine(listener.GetAI().Reevaluate());
             }
         }
     }

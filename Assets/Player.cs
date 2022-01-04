@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     GameState gameState;
     private bool isAI = true;
     AI ai;
+    private bool IsThinking = false;
+    StatusUpdater statusUpdater;
 
     private void Awake()
     {
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
         board = FindObjectOfType<Board>();
         enterPlayHandler = FindObjectOfType<EnterPlayHandler>();
         gameState = FindObjectOfType<GameState>();
+        statusUpdater = GetComponent<StatusUpdater>();
         if (GetComponent<AI>() == null)
         {
             isAI = false;
@@ -114,17 +117,12 @@ public class Player : MonoBehaviour
         return ally;
     }
 
-    public void SetAlly(Player player)
-    {
-        ally = player;
-    }
-
     public void EndTurn()
     {
         hasEndedTurn = true;
         if (gameState.EndTurnChecker())
         {
-            gameState.EndTurn();
+            gameState.TryToEndTurn();
         }
     }
 
@@ -141,5 +139,21 @@ public class Player : MonoBehaviour
     public bool HasAlly()
     {
         return hasAlly;
+    }
+
+    public void UpdateThinkingStatus(bool value)
+    {
+        IsThinking = value;
+        //update display of thinking
+    }
+
+    public bool GetThinkingStatus()
+    {
+        return IsThinking;
+    }
+
+    public StatusUpdater GetStatusUpdater()
+    {
+        return statusUpdater;
     }
 }
