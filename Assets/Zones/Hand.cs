@@ -37,7 +37,7 @@ public class Hand : Zone
     public void RecalcHandSize()
     {
         handSize = cards.Count;
-        player.GetStatusUpdater().UpdateCardInHand(handSize);
+        //player.GetStatusUpdater().UpdateCardInHand(handSize, player.GetName());
     }
 
     public int GetHandSize()
@@ -58,13 +58,13 @@ public class Hand : Zone
     public void IncreaseHandSize()
     {
         handSize++;
-        player.GetStatusUpdater().UpdateCardInHand(handSize);
+        player.GetStatusUpdater().UpdateCardInHand(handSize, player.GetName());
     }
 
     public void DecreaseHandSize()
     {
         handSize--;
-        player.GetStatusUpdater().UpdateCardInHand(handSize);
+        player.GetStatusUpdater().UpdateCardInHand(handSize, player.GetName());
     }
 
     public void MakeHandPlayableForAttack()

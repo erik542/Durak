@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
     [SerializeField] int baseHandSize = 20;
     [SerializeField] int initialAttacker = 0;
-    [SerializeField] Canvas EndGameCanvas;
 
     int currentDefender;
     int currentAttacker;
@@ -16,12 +14,15 @@ public class GameState : MonoBehaviour
     Deck deck;
     Board board;
     bool defenseSuccessful = true;
+    Player humanPlayer;
+    EndGameHandler endGameHandler;
 
     private void Awake()
     {
         players = FindObjectsOfType<Player>();
         deck = FindObjectOfType<Deck>();
         board = FindObjectOfType<Board>();
+        endGameHandler = GetComponent<EndGameHandler>();
     }
 
     private void Start()
@@ -41,7 +42,13 @@ public class GameState : MonoBehaviour
 
     private void StartGame()
     {
-        EndGameCanvas.enabled = false;
+        foreach (Player player in players)
+        {
+            if (!player.IsAI())
+            {
+                humanPlayer = player;
+            }
+        }
         deck.InitializeDeckComposition();
         SetTrumpSuit(deck.GetLastCard().GetSuit());
         currentAttacker = initialAttacker;
@@ -110,35 +117,47 @@ public class GameState : MonoBehaviour
 
     public void EndGame()
     {
-        EndGameCanvas.enabled = true;
+        endGameHandler.EndGame(CheckIfPlayerWon());       
     }
 
-    public void ResetGame()
+    private bool CheckIfPlayerWon()
     {
-        SceneManager.LoadScene(0);
+        return humanPlayer.GetHand().GetHandSize() <= 0;
     }
     
     private bool CheckForGameEnd()
     {
-        int playersRemaining = 0;
-        foreach (Player player in players)
+        bool gameOver = false;
+        if (humanPlayer.GetHand().GetHandSize() > 0)
         {
-            if (player.HasAlly())
+            int playersRemaining = 0;
+            foreach (Player player in players)
             {
-                foreach (Player otherPlayer in players)
+                if (player.HasAlly())
                 {
-                    if (otherPlayer != player.GetAlly() && player.GetHand().GetHandSize() > 0)
+                    foreach (Player otherPlayer in players)
                     {
-                        playersRemaining++;
+                        if (otherPlayer != player.GetAlly() && player.GetHand().GetHandSize() > 0)
+                        {
+                            playersRemaining++;
+                        }
                     }
                 }
+                else if (player.GetHand().GetHandSize() > 0)
+                {
+                    playersRemaining++;
+                }
             }
-            else if (player.GetHand().GetHandSize() > 0)
+            if (playersRemaining <= 1)
             {
-                playersRemaining++;
+                gameOver = true;
             }
         }
-        return playersRemaining <= 1;
+        else
+        {
+            gameOver = true;
+        }
+        return gameOver;
     }
 
     public void ResetPlayers()

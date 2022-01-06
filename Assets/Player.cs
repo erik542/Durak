@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     AI ai;
     private bool IsThinking = false;
     StatusUpdater statusUpdater;
+    [SerializeField] string playerName;
 
     private void Awake()
     {
@@ -144,7 +145,7 @@ public class Player : MonoBehaviour
     public void UpdateThinkingStatus(bool value)
     {
         IsThinking = value;
-        //update display of thinking
+        statusUpdater.UpdateThinkingText(value);
     }
 
     public bool GetThinkingStatus()
@@ -155,5 +156,10 @@ public class Player : MonoBehaviour
     public StatusUpdater GetStatusUpdater()
     {
         return statusUpdater;
+    }
+
+    public string GetName()
+    {
+        return playerName;
     }
 }

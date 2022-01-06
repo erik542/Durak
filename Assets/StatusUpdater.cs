@@ -7,7 +7,6 @@ public class StatusUpdater : MonoBehaviour
 {
     [SerializeField] Text thinkingText;
     [SerializeField] Text cardsInHandText;
-    [SerializeField] Text playerNameText;
     private void Awake()
     {
         thinkingText.enabled = false;
@@ -18,8 +17,8 @@ public class StatusUpdater : MonoBehaviour
         thinkingText.enabled = value;
     }
 
-    public void UpdateCardInHand(int cards)
+    public void UpdateCardInHand(int cards, string name)
     {
-        cardsInHandText.text = cards.ToString();
+        cardsInHandText.text = name + " (" + cards.ToString() + ")";
     }
 }

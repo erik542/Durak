@@ -95,11 +95,21 @@ public class Card : MonoBehaviour
 
     public void ToggleCardPlayability(bool value)
     {
-        if (value)
+        if (!cardHolder.IsAI())
         {
-            foreach (SpriteRenderer spriteRenderer in cardImageRenderers)
+            if (value)
             {
-                spriteRenderer.material = playableMaterial;
+                foreach (SpriteRenderer spriteRenderer in cardImageRenderers)
+                {
+                    spriteRenderer.material = playableMaterial;
+                }
+            }
+            else
+            {
+                foreach (SpriteRenderer spriteRenderer in cardImageRenderers)
+                {
+                    spriteRenderer.material = unplayableMaterial;
+                }
             }
         }
         else
