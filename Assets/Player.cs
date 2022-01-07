@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private bool IsThinking = false;
     StatusUpdater statusUpdater;
     [SerializeField] string playerName;
+    AudioSource audioSource;
 
     private void Awake()
     {
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
         {
             hasAlly = true;
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -83,6 +85,7 @@ public class Player : MonoBehaviour
                 card.isDefended = false;
                 enterPlayHandler.InvokeAllListeners(board);
                 card.ToggleCardPlayability(false);
+                audioSource.PlayOneShot(audioSource.clip);
             }
             else
             {
@@ -103,6 +106,7 @@ public class Player : MonoBehaviour
                 cardOnBoard.isDefended = true;
                 cardOnBoard.defendedByCard = cardInHand;
                 enterPlayHandler.InvokeAllListeners(board);
+                audioSource.PlayOneShot(audioSource.clip);
             }
             else
             {

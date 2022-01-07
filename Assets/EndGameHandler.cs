@@ -10,6 +10,12 @@ public class EndGameHandler : MonoBehaviour
     [SerializeField] Text endGameText;
     [SerializeField] string winningMessage;
     [SerializeField] string losingMessage;
+    SceneChanger sceneChanger;
+
+    private void Awake()
+    {
+        sceneChanger = FindObjectOfType<SceneChanger>();
+    }
 
     private void Start()
     {
@@ -27,15 +33,5 @@ public class EndGameHandler : MonoBehaviour
         {
             endGameText.text = losingMessage;
         }
-    }
-
-    public void ResetGame()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public void GoToMainMenu()
-    {
-
     }
 }

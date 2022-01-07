@@ -6,6 +6,7 @@ public class Deck : Zone
 {
     [SerializeField] List<Card> initialDeckComposition;
     [SerializeField] CardsPile cardsPile;
+    AudioSource audioSource;
 
     LinkedList<Card> cardList;
     int deckSize;
@@ -14,6 +15,7 @@ public class Deck : Zone
     {
         base.Awake();
         cardList = new LinkedList<Card>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -38,6 +40,7 @@ public class Deck : Zone
         {
             cardList.AddFirst(tempCardList[i]);
         }
+        audioSource.PlayOneShot(audioSource.clip);
     }
 
     public override void AddCard(Card card)
