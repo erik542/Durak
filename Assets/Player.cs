@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Hand))]
+[RequireComponent(typeof(StatusUpdater))]
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     Hand hand;
@@ -16,7 +19,7 @@ public class Player : MonoBehaviour
     GameState gameState;
     private bool isAI = true;
     AI ai;
-    private bool IsThinking = false;
+    private bool isThinking = false;
     StatusUpdater statusUpdater;
     [SerializeField] string playerName;
     AudioSource audioSource;
@@ -106,6 +109,7 @@ public class Player : MonoBehaviour
                 cardOnBoard.isDefended = true;
                 cardOnBoard.defendedByCard = cardInHand;
                 enterPlayHandler.InvokeAllListeners(board);
+                cardInHand.ToggleCardPlayability(false);
                 audioSource.PlayOneShot(audioSource.clip);
             }
             else
@@ -148,13 +152,13 @@ public class Player : MonoBehaviour
 
     public void UpdateThinkingStatus(bool value)
     {
-        IsThinking = value;
+        isThinking = value;
         statusUpdater.UpdateThinkingText(value);
     }
 
     public bool GetThinkingStatus()
     {
-        return IsThinking;
+        return isThinking;
     }
 
     public StatusUpdater GetStatusUpdater()

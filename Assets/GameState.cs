@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EndGameHandler))]
 public class GameState : MonoBehaviour
 {
-    [SerializeField] int baseHandSize = 20;
-    [SerializeField] int initialAttacker = 0;
+    [SerializeField] int baseHandSize = 6;
+    [SerializeField] int initialAttacker = 3;
 
     int currentDefender;
     int currentAttacker;
