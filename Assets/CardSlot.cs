@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CardsPile))]
 public class CardSlot : MonoBehaviour
 {
     private HoverManager hoverManager;
     private CardsPile cardsPile;
     private bool hasCard;
-    private int cardCount;
+    private int cardCount = 0;
     private List<Card> cardList;
     private bool isFull;
     private int maxCards = 2;
@@ -18,9 +19,8 @@ public class CardSlot : MonoBehaviour
     private void Awake()
     {
         hoverManager = GetComponentInParent<HoverManager>();
-        cardsPile = GetComponentInChildren<CardsPile>();
+        cardsPile = GetComponent<CardsPile>();
         cardList = new List<Card>();
-        cardCount = 0;
     }
 
     private void OnMouseEnter()

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class EndGameHandler : MonoBehaviour
 {
@@ -10,11 +9,9 @@ public class EndGameHandler : MonoBehaviour
     [SerializeField] Text endGameText;
     [SerializeField] string winningMessage;
     [SerializeField] string losingMessage;
-    SceneChanger sceneChanger;
 
     private void Awake()
     {
-        sceneChanger = FindObjectOfType<SceneChanger>();
     }
 
     private void Start()

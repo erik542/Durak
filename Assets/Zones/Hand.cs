@@ -58,13 +58,13 @@ public class Hand : Zone
     public void IncreaseHandSize()
     {
         handSize++;
-        player.GetStatusUpdater().UpdateCardInHand(handSize, player.GetName());
+        player.GetStatusUpdater().UpdateCardsInHand(handSize, player.GetName());
     }
 
     public void DecreaseHandSize()
     {
         handSize--;
-        player.GetStatusUpdater().UpdateCardInHand(handSize, player.GetName());
+        player.GetStatusUpdater().UpdateCardsInHand(handSize, player.GetName());
     }
 
     public void MakeHandPlayableForAttack()

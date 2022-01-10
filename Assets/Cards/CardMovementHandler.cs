@@ -13,14 +13,12 @@ public class CardMovementHandler : MonoBehaviour
     public bool hasActiveCardSlot;
     public bool isMovingSomething;
     private Vector3 originalPosition;
-    private GameState gameState;
     
 
     private void Awake()
     {
         card = GetComponent<Card>();
         hoverManager = FindObjectOfType<HoverManager>();
-        gameState = FindObjectOfType<GameState>();
     }
 
     private void Start()

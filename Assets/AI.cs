@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(Hand))]
 public class AI : MonoBehaviour
 {
     Player player;
@@ -26,7 +28,7 @@ public class AI : MonoBehaviour
         {
             if (playableCards.Count > 0)
             {
-                Card cardToAttackWith = FindCardToAttackWith();
+                Card cardToAttackWith = FindCardToAttackWith(playableCards);
                 PlayCardInFirstSlot(cardToAttackWith);
                 player.AttackWithCard(cardToAttackWith);
             }
@@ -96,8 +98,8 @@ public class AI : MonoBehaviour
         }
     }
 
-    private Card FindCardToAttackWith()
+    private Card FindCardToAttackWith(List<Card> playableCards)
     {
-        return PickRandomCardFromList(hand.GetPlayableCards());
+        return PickRandomCardFromList(playableCards);
     }
 }

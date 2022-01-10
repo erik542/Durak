@@ -17,7 +17,7 @@ public class StatusUpdater : MonoBehaviour
         thinkingText.enabled = value;
     }
 
-    public void UpdateCardInHand(int cards, string name)
+    public void UpdateCardsInHand(int cards, string name)
     {
         cardsInHandText.text = name + " (" + cards.ToString() + ")";
     }

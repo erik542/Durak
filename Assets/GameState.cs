@@ -116,7 +116,7 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void EndGame()
+    private void EndGame()
     {
         endGameHandler.EndGame(CheckIfPlayerWon());       
     }
@@ -161,7 +161,7 @@ public class GameState : MonoBehaviour
         return gameOver;
     }
 
-    public void ResetPlayers()
+    private void ResetPlayers()
     {
         foreach (Player player in players)
         {

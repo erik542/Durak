@@ -9014,7 +9014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab3f405ddae3bf4185b4a0099481440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHandSize: 13
+  baseHandSize: 6
   initialAttacker: 3
 --- !u!114 &2086355335
 MonoBehaviour:
