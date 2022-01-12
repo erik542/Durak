@@ -1,2 +1,2 @@
 # Durak
-Durak card temo project
+Durak card demo project
